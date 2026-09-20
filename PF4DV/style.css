@@ -344,21 +344,70 @@ a {
 }
 
 .project-card {
+    position: relative;
     min-height: 320px;
-    padding: 28px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     border-radius: 2px;
+    overflow: hidden;
+}
+
+.project-card::after {
+    content: "";
+    position: absolute;
+    right: -44px;
+    bottom: -44px;
+    width: 140px;
+    height: 140px;
+    border: 1px solid rgba(215, 255, 79, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.project-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.project-number {
+    display: inline-grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    flex: 0 0 48px;
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    background: rgba(215, 255, 79, 0.08);
+    color: var(--accent);
+    font-family: "DM Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+}
+
+.project-type {
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 10px;
 }
 
 .project-card h3 {
-    margin-top: 55px;
-    font-size: 30px;
+    max-width: 260px;
+    margin-top: 48px;
+    font-size: clamp(1.7rem, 2.5vw, 2rem);
     line-height: 1.12;
+    letter-spacing: -0.04em;
 }
 
 .project-card p {
+    max-width: 310px;
     margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.7;
 }
 
 .project-footer {
