@@ -72,6 +72,45 @@ a {
     color: var(--text);
 }
 
+.nav-links a,
+.button,
+.project-card,
+.info-card,
+.resource-card,
+.team-card {
+    transition: color 0.25s ease, background-color 0.25s ease,
+        border-color 0.25s ease, transform 0.35s ease, opacity 0.35s ease;
+}
+
+.button-primary:hover {
+    background: #e5ff80;
+    transform: translateY(-3px);
+}
+
+.button-secondary:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+}
+
+.project-card:hover,
+.info-card:hover,
+.resource-card:hover,
+.team-card:hover {
+    border-color: rgba(215, 255, 79, 0.5);
+    transform: translateY(-6px);
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .menu-toggle {
     display: none;
     border: 0;
@@ -313,6 +352,24 @@ a {
 
     .nav-links {
         display: none;
+        position: absolute;
+        top: 72px;
+        right: 24px;
+        left: 24px;
+        z-index: 10;
+        flex-direction: column;
+        gap: 0;
+        padding: 12px 18px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 10px 0;
     }
 
     .hero {
