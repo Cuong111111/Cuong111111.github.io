@@ -638,13 +638,7 @@ footer p {
 
 /* MOBILE */
 
-@media (max-width: 800px) {
-
-    nav {
-        display: none;
-    }
-
-    /* Styles for the current portfolio markup */
+/* Styles for the current portfolio markup */
     .container {
         width: min(var(--max-width), calc(100% - 48px));
         margin-inline: auto;
@@ -954,43 +948,6 @@ footer p {
         .footer-content {
             flex-direction: column;
         }
-    }
-
-    .hero {
-        min-height: 700px;
-    }
-
-    .hero h1 {
-        letter-spacing: -3px;
-    }
-
-    .about {
-        grid-template-columns: 1fr;
-    }
-
-    .project-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .section-heading {
-        flex-direction: column;
-        align-items: start;
-        gap: 30px;
-    }
-
-    .workflow-line {
-        flex-direction: column;
-        align-items: start;
-        gap: 25px;
-    }
-
-    .workflow-arrow {
-        transform: rotate(90deg);
-    }
-
-    footer {
-        flex-direction: column;
-        gap: 30px;
     }
 
 }
