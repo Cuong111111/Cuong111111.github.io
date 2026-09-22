@@ -119,8 +119,46 @@ a {
 .project-card:hover {
     background: linear-gradient(145deg, #171b1e, var(--surface));
     border-color: var(--border-strong);
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(215, 255, 79, 0.08);
+    transform: translateY(-12px);
+    box-shadow: 0 24px 52px rgba(0, 0, 0, 0.38),
+        0 0 0 1px rgba(215, 255, 79, 0.12),
+        0 0 36px rgba(215, 255, 79, 0.08);
+}
+
+.project-card.reveal.visible:hover {
+    transform: translateY(-12px);
+}
+
+.project-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 25%, rgba(215, 255, 79, 0.08), transparent 75%);
+    transform: translateX(-115%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+}
+
+.project-card:hover::before {
+    transform: translateX(115%);
+}
+
+.project-card > * {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.35s ease;
+}
+
+.project-card:hover .project-top {
+    transform: translateY(-3px);
+}
+
+.project-card:hover h3 {
+    transform: translateX(4px);
+}
+
+.project-card:hover .project-number {
+    box-shadow: 0 0 0 5px rgba(215, 255, 79, 0.1);
 }
 
 .reveal {
