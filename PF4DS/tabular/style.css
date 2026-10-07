@@ -319,27 +319,75 @@ tbody th {
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--surface);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.figure-card:hover,
+.figure-card[open] {
+  border-color: rgba(215, 255, 79, 0.38);
+  background: #14181a;
+}
+
+.figure-card > summary {
+  position: relative;
+  padding: 17px 54px 17px 20px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  list-style: none;
+}
+
+.figure-card > summary::-webkit-details-marker {
+  display: none;
+}
+
+.figure-card > summary::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.figure-card[open] > summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.figure-card[open] > summary::after {
+  transform: translateY(-25%) rotate(225deg);
+}
+
+.figure-card > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.chart-content {
+  padding: 18px 22px 0;
 }
 
 .figure-card img {
   display: block;
   width: 100%;
+  max-width: 820px;
   height: auto;
+  margin-inline: auto;
   background: #fff;
 }
 
-.figure-card figcaption {
-  padding: 14px 15px 4px;
-  color: var(--text);
-  font-size: 13px;
-  font-weight: 600;
-}
-
 .figure-comment {
-  padding: 4px 15px 16px;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.55;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px 2px 20px;
+  color: #d0d3ce;
+  font-size: 16px;
+  line-height: 1.65;
 }
 
 .outlier-heading {
@@ -444,6 +492,14 @@ tbody th {
   .analysis-card,
   .assessment-card {
     padding: 22px 18px;
+  }
+
+  .chart-content {
+    padding: 12px 12px 0;
+  }
+
+  .figure-comment {
+    font-size: 15px;
   }
 
   .bar-label {
