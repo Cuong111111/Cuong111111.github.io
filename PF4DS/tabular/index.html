@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Adult Income Tabular Dataset: exploratory data analysis and data quality assessment.">
+  <title>Adult Income Tabular Dataset | DATA261</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="../" class="logo">DATA<span>261</span></a>
+    <nav aria-label="Main navigation">
+      <a href="#overview">Overview</a>
+      <a href="#eda">EDA</a>
+      <a href="#assessment">Assessment</a>
+    </nav>
+    <a class="github-btn" href="https://github.com/Cuong111111">GitHub ↗</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-label">PROJECT 01 · TABULAR DATA · ADULT INCOME</div>
+      <h1>Adult Income <span>Tabular Dataset</span></h1>
+      <p class="hero-description">
+        An exploratory look at the UCI Adult Income dataset: its data quality,
+        income distribution, and the patterns worth investigating before modeling.
+      </p>
+      <div class="hero-actions">
+        <a href="#eda" class="primary-btn">Explore the EDA ↓</a>
+        <a href="#assessment" class="secondary-btn">Read the assessment</a>
+      </div>
+      <p class="hero-note">A descriptive analysis of 1994 US Census records; associations are not causal claims.</p>
+    </section>
+
+    <section id="overview" class="section overview-section">
+      <div class="section-number">01 / DATASET OVERVIEW</div>
+      <div class="section-heading">
+        <h2>Know the <em>data.</em></h2>
+        <p>Source: UCI Machine Learning Repository's Adult dataset.</p>
+      </div>
+      <div class="stat-grid">
+        <article class="stat-card">
+          <span class="stat-value">32,561</span>
+          <span class="stat-label">records loaded</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-value">15</span>
+          <span class="stat-label">columns · 14 predictors + target</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-value">6 / 9</span>
+          <span class="stat-label">numeric / categorical columns</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-value">24</span>
+          <span class="stat-label">duplicate rows identified (0.07%)</span>
+        </article>
+      </div>
+      <div class="overview-note">
+        <p>
+          The target is <strong>income</strong> (≤50K or &gt;50K). Predictors describe
+          demographics, education, employment, weekly working hours, and capital gains/losses.
+          The notebook removes the 24 duplicate rows, leaving <strong>32,537 records</strong>.
+        </p>
+        <a href="https://archive.ics.uci.edu/dataset/2/adult" target="_blank" rel="noopener noreferrer">
+          UCI dataset reference ↗
+        </a>
+      </div>
+    </section>
+
+    <section id="eda" class="section eda-section">
+      <div class="section-number">02 / EXPLORATORY DATA ANALYSIS</div>
+      <div class="section-heading">
+        <h2>What the data <em>shows.</em></h2>
+        <p>Summaries below are taken from the saved notebook outputs.</p>
+      </div>
+
+      <div class="analysis-grid">
+        <article class="analysis-card">
+          <div class="card-kicker">DATA QUALITY</div>
+          <h3>Missing values cluster in three fields</h3>
+          <p class="card-description">Missing entries are represented as “?” in the source and converted to null values.</p>
+          <div class="bar-list" role="list" aria-label="Missing values by feature">
+            <div class="bar-row" role="listitem">
+              <div class="bar-label"><span>Occupation</span><strong>1,843 · 5.66%</strong></div>
+              <div class="bar-track"><span style="width:94.6%"></span></div>
+            </div>
+            <div class="bar-row" role="listitem">
+              <div class="bar-label"><span>Workclass</span><strong>1,836 · 5.64%</strong></div>
+              <div class="bar-track"><span style="width:94.3%"></span></div>
+            </div>
+            <div class="bar-row" role="listitem">
+              <div class="bar-label"><span>Native country</span><strong>583 · 1.79%</strong></div>
+              <div class="bar-track"><span style="width:29.9%"></span></div>
+            </div>
+          </div>
+          <p class="chart-note">Percentages use all 32,561 loaded records as the denominator.</p>
+        </article>
+
+        <article class="analysis-card">
+          <div class="card-kicker">TARGET DISTRIBUTION</div>
+          <h3>Most records are in the ≤50K class</h3>
+          <p class="card-description">The target is imbalanced, so raw accuracy alone may overstate model quality.</p>
+          <div class="bar-list target-bars" role="list" aria-label="Income class distribution">
+            <div class="bar-row" role="listitem">
+              <div class="bar-label"><span>≤50K</span><strong>24,720 · 75.92%</strong></div>
+              <div class="bar-track"><span style="width:75.92%"></span></div>
+            </div>
+            <div class="bar-row" role="listitem">
+              <div class="bar-label"><span>&gt;50K</span><strong>7,841 · 24.08%</strong></div>
+              <div class="bar-track"><span style="width:24.08%"></span></div>
+            </div>
+          </div>
+          <p class="chart-note">Counts are from the original loaded data, before duplicate removal.</p>
+        </article>
+      </div>
+
+      <div class="analysis-grid lower-grid">
+        <article class="analysis-card">
+          <div class="card-kicker">NUMERIC PROFILE</div>
+          <h3>Typical values and skew</h3>
+          <p class="card-description">Several numeric fields have strong right tails or many zero values.</p>
+          <div class="table-wrap">
+            <table>
+              <caption>Selected descriptive statistics</caption>
+              <thead>
+                <tr><th scope="col">Feature</th><th scope="col">Median</th><th scope="col">Mean</th><th scope="col">Range</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Age (years)</th><td>37</td><td>38.58</td><td>17–90</td></tr>
+                <tr><th scope="row">Education level*</th><td>10</td><td>10.08</td><td>1–16</td></tr>
+                <tr><th scope="row">Hours / week</th><td>40</td><td>40.44</td><td>1–99</td></tr>
+                <tr><th scope="row">Capital gain</th><td>0</td><td>1,077.65</td><td>0–99,999</td></tr>
+                <tr><th scope="row">Capital loss</th><td>0</td><td>87.30</td><td>0–4,356</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="chart-note">*Education level is the numeric <code>education-num</code> field. Capital values are highly zero-inflated.</p>
+        </article>
+
+        <article class="analysis-card">
+          <div class="card-kicker">INCOME BY EDUCATION</div>
+          <h3>High-income share varies by education</h3>
+          <p class="card-description">Share of records above $50K within each education category:</p>
+          <div class="bar-list education-bars" role="list" aria-label="Share earning over $50K by education">
+            <div class="bar-row" role="listitem">
+              <div class="bar-label"><span>Doctorate</span><strong>74.09%</strong></div>
+              <div class="bar-track"><span style="width:74.09%"></span></div>
+            </div>
+            <div class="bar-row" role="listitem">
+              <div class="bar-label"><span>Professional school</span><strong>73.44%</strong></div>
+              <div class="bar-track"><span style="width:73.44%"></span></div>
+            </div>
+            <div class="bar-row" role="listitem">
+              <div class="bar-label"><span>Masters</span><strong>55.66%</strong></div>
+              <div class="bar-track"><span style="width:55.66%"></span></div>
+            </div>
+            <div class="bar-row" role="listitem">
+              <div class="bar-label"><span>Bachelors</span><strong>41.48%</strong></div>
+              <div class="bar-track"><span style="width:41.48%"></span></div>
+            </div>
+            <div class="bar-row" role="listitem">
+              <div class="bar-label"><span>HS-grad</span><strong>15.95%</strong></div>
+              <div class="bar-track"><span style="width:15.95%"></span></div>
+            </div>
+          </div>
+          <p class="chart-note">Within-category percentages are more informative than raw counts when category sizes differ.</p>
+        </article>
+      </div>
+
+      <div class="finding-strip">
+        <strong>Reading the pattern</strong>
+        <p>
+          Higher education categories have larger observed &gt;50K shares in this dataset.
+          This is an association, not evidence that education alone causes higher income;
+          the chart does not control for age, occupation, hours, or other factors.
+        </p>
+      </div>
+
+      <div class="figure-gallery">
+        <div class="gallery-heading">
+          <div class="card-kicker">NOTEBOOK FIGURES</div>
+          <h3>EDA charts</h3>
+          <p>Original plots exported from the saved notebook outputs.</p>
+        </div>
+        <div class="figure-grid">
+          <figure class="figure-card">
+            <img src="images/missing-values.png" alt="Bar chart showing missing-value percentages for occupation, workclass, and native country" loading="lazy">
+            <figcaption>Missing values by feature</figcaption>
+            <p class="figure-comment">Occupation and workclass each lack about 5.6% of values; native-country is missing less often (1.79%). These categorical fields need an explicit missing-value strategy before modeling.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/numeric-distributions.png" alt="Histograms showing the distributions of the six numerical features" loading="lazy">
+            <figcaption>Numerical feature distributions</figcaption>
+            <p class="figure-comment">Age and fnlwgt have longer right tails, while education-num is discrete. Capital gains and losses are concentrated at zero; hours-per-week has a strong peak around 40. Scaling and transformation choices should account for these shapes.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/education-distribution.png" alt="Count plot of observations across education categories" loading="lazy">
+            <figcaption>Education category counts</figcaption>
+            <p class="figure-comment">HS-grad is the largest group (10,501), followed by Some-college (7,291) and Bachelors (5,355). The uneven category sizes make within-category rates more useful than counts for comparing income.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/workclass-distribution.png" alt="Count plot of observations across workclass categories" loading="lazy">
+            <figcaption>Workclass category counts</figcaption>
+            <p class="figure-comment">Private employment dominates (22,696 records). Without-pay and Never-worked are rare categories, so model results for those groups may be unstable; missing workclass values are not shown as a separate bar here.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/income-class-distribution.png" alt="Count plot comparing the less-than-or-equal-to-50K and greater-than-50K income classes" loading="lazy">
+            <figcaption>Income class distribution</figcaption>
+            <p class="figure-comment">The ≤50K class accounts for 75.92% of records, versus 24.08% for &gt;50K. Use a stratified split and report per-class precision, recall, and F1 rather than relying on accuracy alone.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/income-by-education-counts.png" alt="Counts of income classes within each education category" loading="lazy">
+            <figcaption>Income counts by education</figcaption>
+            <p class="figure-comment">The lower-income bar is longer in most education groups, partly reflecting the overall class imbalance and category sizes. Compare proportions within each education group—not these raw counts—to judge how income mix differs.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/high-income-share-by-education.png" alt="Horizontal bar chart of the high-income percentage for each education category" loading="lazy">
+            <figcaption>&gt;50K share by education</figcaption>
+            <p class="figure-comment">The observed &gt;50K share is highest for Doctorate (74.09%) and Prof-school (73.44%), and is 15.95% for HS-grad. Smaller education groups have fewer observations, and this descriptive association does not establish causation.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/age-by-income.png" alt="Age distributions compared by income class" loading="lazy">
+            <figcaption>Age distribution by income</figcaption>
+            <p class="figure-comment">The &gt;50K age distribution is shifted toward older ages, with more density around the 40s; the ≤50K group is more concentrated among younger adults. The distributions overlap substantially, so age alone does not separate the classes.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/hours-by-income.png" alt="Boxplots comparing weekly working hours by income class" loading="lazy">
+            <figcaption>Weekly hours by income</figcaption>
+            <p class="figure-comment">The &gt;50K group has a wider central spread and its upper quartile is higher, while both groups contain unusually low and high reported hours. These are observations to investigate, not automatic reasons to remove records.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/numeric-correlation.png" alt="Correlation heatmap for the six numerical features" loading="lazy">
+            <figcaption>Numerical feature correlations</figcaption>
+            <p class="figure-comment">Pairwise Pearson correlations among numeric predictors are weak; the largest off-diagonal value is 0.15 between education-num and hours-per-week. This only captures linear numeric relationships and does not assess categorical predictors or associations with income.</p>
+          </figure>
+        </div>
+
+        <div class="gallery-heading outlier-heading">
+          <h3>Outlier inspection</h3>
+          <p>Notebook IQR boxplots. Flagged values need contextual review and are not automatically errors.</p>
+        </div>
+        <div class="figure-grid outlier-grid">
+          <figure class="figure-card">
+            <img src="images/outliers-age.png" alt="IQR boxplot for age" loading="lazy">
+            <figcaption>Age</figcaption>
+            <p class="figure-comment">The IQR rule flags 143 ages (0.44%), mostly at the upper end. The observed maximum is 90, which may be unusual but is not inherently invalid; check domain rules before treating these as errors.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/outliers-fnlwgt.png" alt="IQR boxplot for fnlwgt" loading="lazy">
+            <figcaption>Final weight (fnlwgt)</figcaption>
+            <p class="figure-comment">There are 992 flagged values (3.05%) in the long upper tail, extending to 1,484,705. Since fnlwgt is a sampling weight, extreme values need interpretation in context rather than automatic deletion.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/outliers-education-num.png" alt="IQR boxplot for education number" loading="lazy">
+            <figcaption>Education number</figcaption>
+            <p class="figure-comment">The IQR rule flags 1,198 records (3.68%) at the low end. Education-num is a discrete ordinal code, so these valid lower education levels should not be treated as erroneous continuous-value outliers.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/outliers-capital-gain.png" alt="IQR boxplot for capital gain" loading="lazy">
+            <figcaption>Capital gain</figcaption>
+            <p class="figure-comment">Because both quartiles are zero, the IQR rule flags 2,712 positive values (8.33%) as outliers. This is a zero-inflated distribution; positive gains may be meaningful observations, not data errors.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/outliers-capital-loss.png" alt="IQR boxplot for capital loss" loading="lazy">
+            <figcaption>Capital loss</figcaption>
+            <p class="figure-comment">The quartiles are also zero for capital-loss, so 1,519 positive values (4.67%) are flagged. Preserve or transform them based on the modeling objective rather than dropping them solely due to the boxplot.</p>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/outliers-hours-per-week.png" alt="IQR boxplot for hours worked per week" loading="lazy">
+            <figcaption>Hours per week</figcaption>
+            <p class="figure-comment">The IQR rule flags 9,008 records (27.66%) outside 32.5–52.5 hours. The large share shows that a mechanical cutoff is too aggressive here; part-time and long-hour work patterns may be valid.</p>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="assessment" class="section assessment-section">
+      <div class="section-number">03 / EVALUATION & NEXT STEPS</div>
+      <div class="section-heading">
+        <h2>What to trust — <em>and what not to.</em></h2>
+        <p>A critical assessment of the current analysis and its readiness for modeling.</p>
+      </div>
+      <div class="assessment-grid">
+        <article class="assessment-card">
+          <span class="assessment-index">01</span>
+          <h3>Useful first-pass EDA</h3>
+          <p>
+            The notebook establishes the dataset shape and types, quantifies nulls and duplicates,
+            profiles numerical features, and compares the target across education levels. These
+            checks surface class imbalance, incomplete records, and skewed numeric fields before
+            any model is trained.
+          </p>
+        </article>
+        <article class="assessment-card">
+          <span class="assessment-index">02</span>
+          <h3>Cleaning is not finished</h3>
+          <p>
+            Only duplicate rows are removed in the saved workflow. Missing values remain in
+            workclass, occupation, and native-country; a model pipeline still needs explicit
+            imputation or a documented missing-category strategy. Outlier flags should be reviewed,
+            not automatically deleted: zero-inflated capital fields and long-tailed hours can make
+            the IQR rule flag valid observations.
+          </p>
+        </article>
+        <article class="assessment-card">
+          <span class="assessment-index">03</span>
+          <h3>Evaluate beyond accuracy</h3>
+          <p>
+            No trained model or validation metrics are reported in this notebook. For a fair next
+            step, use a stratified train/test split and a majority-class baseline, then report
+            precision, recall, F1, and a confusion matrix for the &gt;50K class. Consider PR-AUC
+            alongside ROC-AUC because the target classes are uneven.
+          </p>
+        </article>
+        <article class="assessment-card">
+          <span class="assessment-index">04</span>
+          <h3>Check features and fairness</h3>
+          <p>
+            <code>education</code> and <code>education-num</code> encode closely related information;
+            assess their joint use and avoid train/test leakage by fitting preprocessing only on
+            training data. Since sex and race are present, inspect subgroup error rates and treat
+            any predictive findings as historical associations, not objective judgments about people.
+          </p>
+        </article>
+      </div>
+      <p class="scope-note">
+        Scope note: this page summarizes the available EDA outputs. It does not claim model
+        performance, causal effects, or fairness guarantees.
+      </p>
+    </section>
+  </main>
+
+  <footer class="tabular-footer">
+    <span>DATA261 · TABULAR ANALYSIS</span>
+    <a href="../">Back to portfolio ↑</a>
+  </footer>
+</body>
+</html>
