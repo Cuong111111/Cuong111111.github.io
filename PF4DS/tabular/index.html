@@ -78,9 +78,12 @@
       <div class="section-number">02 / EXPLORATORY DATA ANALYSIS</div>
       <div class="section-heading">
         <h2>What the data <em>shows.</em></h2>
-        <p>Summaries below are taken from the saved notebook outputs.</p>
+        <p>Open a section to review its summary, charts, and interpretation.</p>
       </div>
 
+      <details class="eda-accordion">
+        <summary>Data quality and income balance</summary>
+        <div class="accordion-content">
       <div class="analysis-grid">
         <article class="analysis-card">
           <div class="card-kicker">DATA QUALITY</div>
@@ -120,7 +123,12 @@
           <p class="chart-note">Counts are from the original loaded data, before duplicate removal.</p>
         </article>
       </div>
+        </div>
+      </details>
 
+      <details class="eda-accordion">
+        <summary>Numerical profile and income by education</summary>
+        <div class="accordion-content">
       <div class="analysis-grid lower-grid">
         <article class="analysis-card">
           <div class="card-kicker">NUMERIC PROFILE</div>
@@ -182,7 +190,12 @@
           the chart does not control for age, occupation, hours, or other factors.
         </p>
       </div>
+        </div>
+      </details>
 
+      <details class="eda-accordion">
+        <summary>EDA charts and category patterns</summary>
+        <div class="accordion-content">
       <div class="figure-gallery">
         <div class="gallery-heading">
           <div class="card-kicker">NOTEBOOK FIGURES</div>
@@ -241,11 +254,17 @@
             <p class="figure-comment">Pairwise Pearson correlations among numeric predictors are weak; the largest off-diagonal value is 0.15 between education-num and hours-per-week. This only captures linear numeric relationships and does not assess categorical predictors or associations with income.</p>
           </figure>
         </div>
+      </div>
+        </div>
+      </details>
 
+      <details class="eda-accordion">
+        <summary>Outlier inspection</summary>
+        <div class="accordion-content">
         <div class="gallery-heading outlier-heading">
-          <h3>Outlier inspection</h3>
           <p>Notebook IQR boxplots. Flagged values need contextual review and are not automatically errors.</p>
         </div>
+        <div class="figure-gallery">
         <div class="figure-grid outlier-grid">
           <figure class="figure-card">
             <img src="images/outliers-age.png" alt="IQR boxplot for age" loading="lazy">
@@ -279,6 +298,8 @@
           </figure>
         </div>
       </div>
+        </div>
+      </details>
     </section>
 
     <section id="assessment" class="section container assessment-section">
