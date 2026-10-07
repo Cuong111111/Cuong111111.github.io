@@ -7,20 +7,23 @@
   <title>Adult Income Tabular Dataset | DATA261</title>
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="style.css">
+  <script defer src="../script.js"></script>
 </head>
 <body>
-  <header class="navbar">
-    <a href="../" class="logo">DATA<span>261</span></a>
-    <nav aria-label="Main navigation">
-      <a href="#overview">Overview</a>
-      <a href="#eda">EDA</a>
-      <a href="#assessment">Assessment</a>
-    </nav>
-    <a class="github-btn" href="https://github.com/Cuong111111">GitHub ↗</a>
+  <header class="site-header">
+    <div class="navbar container">
+      <a class="brand" href="../">PF<span>4DS</span></a>
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#overview">Overview</a>
+        <a href="#eda">EDA</a>
+        <a href="#assessment">Assessment</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero container">
       <div class="hero-label">PROJECT 01 · TABULAR DATA · ADULT INCOME</div>
       <h1>Adult Income <span>Tabular Dataset</span></h1>
       <p class="hero-description">
@@ -34,7 +37,7 @@
       <p class="hero-note">A descriptive analysis of 1994 US Census records; associations are not causal claims.</p>
     </section>
 
-    <section id="overview" class="section overview-section">
+    <section id="overview" class="section container overview-section">
       <div class="section-number">01 / DATASET OVERVIEW</div>
       <div class="section-heading">
         <h2>Know the <em>data.</em></h2>
@@ -70,7 +73,7 @@
       </div>
     </section>
 
-    <section id="eda" class="section eda-section">
+    <section id="eda" class="section container eda-section">
       <div class="section-number">02 / EXPLORATORY DATA ANALYSIS</div>
       <div class="section-heading">
         <h2>What the data <em>shows.</em></h2>
@@ -277,7 +280,7 @@
       </div>
     </section>
 
-    <section id="assessment" class="section assessment-section">
+    <section id="assessment" class="section container assessment-section">
       <div class="section-number">03 / EVALUATION & NEXT STEPS</div>
       <div class="section-heading">
         <h2>What to trust — <em>and what not to.</em></h2>
