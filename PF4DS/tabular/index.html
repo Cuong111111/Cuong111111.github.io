@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Adult Income Tabular Dataset: exploratory data analysis and data quality assessment.">
-  <title>Adult Income Tabular Dataset | DATA261</title>
+  <meta name="description" content="Exploratory data analysis of the Hotel Booking Demand dataset, focused on booking cancellations.">
+  <title>Hotel Booking Demand | PF4DS</title>
   <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
   <script defer src="../script.js"></script>
 </head>
 <body>
@@ -24,11 +24,11 @@
 
   <main>
     <section class="hero container">
-      <h1>Adult Income <span>Tabular Dataset</span></h1>
+      <h1>Hotel Booking <span>Demand</span></h1>
       <div class="hero-support">
         <p class="hero-description">
-          An exploratory look at the UCI Adult Income dataset: its data quality,
-          income distribution, and the patterns worth investigating before modeling.
+          Exploring booking cancellations across hotel types, booking lead times,
+          deposit policies, and arrival seasons.
         </p>
         <div class="hero-actions">
           <a href="#eda" class="primary-btn">Explore the EDA ↓</a>
@@ -36,43 +36,44 @@
         </div>
       </div>
       <div class="hero-note">
-        <p>A descriptive analysis of 1994 US Census records; associations are not causal claims.</p>
-        <a href="https://archive.ics.uci.edu/dataset/2/adult" target="_blank" rel="noopener noreferrer">View dataset ↗</a>
+        <p>Descriptive patterns from hotel booking records; group differences are associations, not causal effects.</p>
+        <a href="https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand" target="_blank" rel="noopener noreferrer">View dataset ↗</a>
       </div>
     </section>
 
     <section id="overview" class="section container overview-section">
       <div class="section-number">01 / DATASET OVERVIEW</div>
       <div class="section-heading">
-        <h2>Know the <em>data.</em></h2>
-        <p>Source: UCI Machine Learning Repository's Adult dataset.</p>
+        <h2>Bookings, <em>in context.</em></h2>
+        <p>Hotel Booking Demand · Kaggle dataset by Jesse Mostipak.</p>
       </div>
       <div class="stat-grid">
         <article class="stat-card">
-          <span class="stat-value">32,561</span>
-          <span class="stat-label">records loaded</span>
+          <span class="stat-value">119,390</span>
+          <span class="stat-label">bookings loaded</span>
         </article>
         <article class="stat-card">
-          <span class="stat-value">15</span>
-          <span class="stat-label">columns · 14 predictors + target</span>
+          <span class="stat-value">32</span>
+          <span class="stat-label">columns in the source CSV</span>
         </article>
         <article class="stat-card">
-          <span class="stat-value">6 / 9</span>
-          <span class="stat-label">numeric / categorical columns</span>
+          <span class="stat-value">37.04%</span>
+          <span class="stat-label">cancelled in the original data</span>
         </article>
         <article class="stat-card">
-          <span class="stat-value">24</span>
-          <span class="stat-label">duplicate rows identified (0.07%)</span>
+          <span class="stat-value">31,994</span>
+          <span class="stat-label">fully duplicated rows identified</span>
         </article>
       </div>
       <div class="overview-note">
         <p>
-          The target is <strong>income</strong> (≤50K or &gt;50K). Predictors describe
-          demographics, education, employment, weekly working hours, and capital gains/losses.
-          The notebook removes the 24 duplicate rows, leaving <strong>32,537 records</strong>.
+          The target <strong>is_canceled</strong> is 1 for a cancelled booking and 0 otherwise.
+          Records cover City Hotel and Resort Hotel bookings. Exact deduplication leaves
+          <strong>87,396 rows</strong>; in that cleaned set, the cancellation share is
+          <strong>27.49%</strong>, so it differs from the original-data rate above.
         </p>
-        <a href="https://archive.ics.uci.edu/dataset/2/adult" target="_blank" rel="noopener noreferrer">
-          UCI dataset reference ↗
+        <a href="https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand" target="_blank" rel="noopener noreferrer">
+          Kaggle dataset ↗
         </a>
       </div>
     </section>
@@ -80,321 +81,305 @@
     <section id="eda" class="section container eda-section">
       <div class="section-number">02 / EXPLORATORY DATA ANALYSIS</div>
       <div class="section-heading">
-        <h2>What the data <em>shows.</em></h2>
-        <p>Open a section to review its summary, charts, and interpretation.</p>
+        <h2>What the bookings <em>show.</em></h2>
+        <p>Open a section, then open an individual chart to see the plot and its interpretation.</p>
       </div>
 
       <details class="eda-accordion">
-        <summary>Data quality and income balance</summary>
+        <summary>Data quality and missing values</summary>
         <div class="accordion-content">
-      <div class="analysis-grid">
-        <article class="analysis-card">
-          <div class="card-kicker">DATA QUALITY</div>
-          <h3>Missing values cluster in three fields</h3>
-          <p class="card-description">Missing entries are represented as “?” in the source and converted to null values.</p>
-          <div class="bar-list" role="list" aria-label="Missing values by feature">
-            <div class="bar-row" role="listitem">
-              <div class="bar-label"><span>Occupation</span><strong>1,843 · 5.66%</strong></div>
-              <div class="bar-track"><span style="width:94.6%"></span></div>
-            </div>
-            <div class="bar-row" role="listitem">
-              <div class="bar-label"><span>Workclass</span><strong>1,836 · 5.64%</strong></div>
-              <div class="bar-track"><span style="width:94.3%"></span></div>
-            </div>
-            <div class="bar-row" role="listitem">
-              <div class="bar-label"><span>Native country</span><strong>583 · 1.79%</strong></div>
-              <div class="bar-track"><span style="width:29.9%"></span></div>
-            </div>
+          <div class="analysis-grid">
+            <article class="analysis-card">
+              <div class="card-kicker">DATA QUALITY</div>
+              <h3>Missingness is concentrated in identifiers</h3>
+              <p class="card-description">The notebook finds missing values in four columns and 31,994 fully duplicated rows.</p>
+              <div class="table-wrap">
+                <table>
+                  <caption>Missing values in the original 119,390 rows</caption>
+                  <thead><tr><th scope="col">Feature</th><th scope="col">Missing</th><th scope="col">Rate</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Company</th><td>112,593</td><td>94.31%</td></tr>
+                    <tr><th scope="row">Agent</th><td>16,340</td><td>13.69%</td></tr>
+                    <tr><th scope="row">Country</th><td>488</td><td>0.41%</td></tr>
+                    <tr><th scope="row">Children</th><td>4</td><td>&lt;0.01%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+            <article class="analysis-card">
+              <div class="card-kicker">DUPLICATES</div>
+              <h3>Deduplication changes the dataset materially</h3>
+              <p class="card-description">
+                Removing 31,994 exact duplicate rows reduces the data from 119,390 to 87,396 records.
+                The observed cancellation proportion shifts from 37.04% to 27.49%, so results must
+                state clearly which version of the data they describe.
+              </p>
+            </article>
           </div>
-          <p class="chart-note">Percentages use all 32,561 loaded records as the denominator.</p>
-        </article>
-
-        <article class="analysis-card">
-          <div class="card-kicker">TARGET DISTRIBUTION</div>
-          <h3>Most records are in the ≤50K class</h3>
-          <p class="card-description">The target is imbalanced, so raw accuracy alone may overstate model quality.</p>
-          <div class="bar-list target-bars" role="list" aria-label="Income class distribution">
-            <div class="bar-row" role="listitem">
-              <div class="bar-label"><span>≤50K</span><strong>24,720 · 75.92%</strong></div>
-              <div class="bar-track"><span style="width:75.92%"></span></div>
-            </div>
-            <div class="bar-row" role="listitem">
-              <div class="bar-label"><span>&gt;50K</span><strong>7,841 · 24.08%</strong></div>
-              <div class="bar-track"><span style="width:24.08%"></span></div>
-            </div>
+          <div class="figure-gallery">
+            <details class="figure-card">
+              <summary>Missing-value rates by feature</summary>
+              <div class="chart-content">
+                <img src="images/hotel-missing-values.png" alt="Bar chart showing missing percentages for company, agent, country, and children" loading="lazy">
+                <p class="figure-comment">
+                  Company is missing in about 94% of rows and agent in about 14%; country is missing
+                  much less often, and only four children values are absent. Company should not be
+                  blindly imputed as an ordinary feature; decide whether its sparse coverage warrants
+                  dropping, a missing category, or another documented treatment.
+                </p>
+              </div>
+            </details>
           </div>
-          <p class="chart-note">Counts are from the original loaded data, before duplicate removal.</p>
-        </article>
-      </div>
         </div>
       </details>
 
       <details class="eda-accordion">
-        <summary>Numerical profile and income by education</summary>
+        <summary>Cancellation target and hotel type</summary>
         <div class="accordion-content">
-      <div class="analysis-grid lower-grid">
-        <article class="analysis-card">
-          <div class="card-kicker">NUMERIC PROFILE</div>
-          <h3>Typical values and skew</h3>
-          <p class="card-description">Several numeric fields have strong right tails or many zero values.</p>
-          <div class="table-wrap">
-            <table>
-              <caption>Selected descriptive statistics</caption>
-              <thead>
-                <tr><th scope="col">Feature</th><th scope="col">Median</th><th scope="col">Mean</th><th scope="col">Range</th></tr>
-              </thead>
-              <tbody>
-                <tr><th scope="row">Age (years)</th><td>37</td><td>38.58</td><td>17–90</td></tr>
-                <tr><th scope="row">Education level*</th><td>10</td><td>10.08</td><td>1–16</td></tr>
-                <tr><th scope="row">Hours / week</th><td>40</td><td>40.44</td><td>1–99</td></tr>
-                <tr><th scope="row">Capital gain</th><td>0</td><td>1,077.65</td><td>0–99,999</td></tr>
-                <tr><th scope="row">Capital loss</th><td>0</td><td>87.30</td><td>0–4,356</td></tr>
-              </tbody>
-            </table>
+          <div class="analysis-grid">
+            <article class="analysis-card">
+              <div class="card-kicker">TARGET DISTRIBUTION</div>
+              <h3>Most original bookings were not cancelled</h3>
+              <p class="card-description">Counts and proportions before removing duplicate rows:</p>
+              <div class="bar-list" role="list" aria-label="Cancellation target proportions">
+                <div class="bar-row" role="listitem">
+                  <div class="bar-label"><span>Not cancelled (0)</span><strong>75,166 · 62.96%</strong></div>
+                  <div class="bar-track"><span style="width:62.96%"></span></div>
+                </div>
+                <div class="bar-row" role="listitem">
+                  <div class="bar-label"><span>Cancelled (1)</span><strong>44,224 · 37.04%</strong></div>
+                  <div class="bar-track"><span style="width:37.04%"></span></div>
+                </div>
+              </div>
+            </article>
+            <article class="analysis-card">
+              <div class="card-kicker">BY HOTEL TYPE</div>
+              <h3>City Hotel has the higher observed cancellation rate</h3>
+              <p class="card-description">Rates use each hotel type's bookings as its denominator.</p>
+              <div class="table-wrap">
+                <table>
+                  <caption>Cancellation rate by hotel type</caption>
+                  <thead><tr><th scope="col">Hotel</th><th scope="col">Bookings</th><th scope="col">Cancelled</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">City Hotel</th><td>79,330</td><td>41.73%</td></tr>
+                    <tr><th scope="row">Resort Hotel</th><td>40,060</td><td>27.76%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
           </div>
-          <p class="chart-note">*Education level is the numeric <code>education-num</code> field. Capital values are highly zero-inflated.</p>
-        </article>
-
-        <article class="analysis-card">
-          <div class="card-kicker">INCOME BY EDUCATION</div>
-          <h3>High-income share varies by education</h3>
-          <p class="card-description">Share of records above $50K within each education category:</p>
-          <div class="bar-list education-bars" role="list" aria-label="Share earning over $50K by education">
-            <div class="bar-row" role="listitem">
-              <div class="bar-label"><span>Doctorate</span><strong>74.09%</strong></div>
-              <div class="bar-track"><span style="width:74.09%"></span></div>
-            </div>
-            <div class="bar-row" role="listitem">
-              <div class="bar-label"><span>Professional school</span><strong>73.44%</strong></div>
-              <div class="bar-track"><span style="width:73.44%"></span></div>
-            </div>
-            <div class="bar-row" role="listitem">
-              <div class="bar-label"><span>Masters</span><strong>55.66%</strong></div>
-              <div class="bar-track"><span style="width:55.66%"></span></div>
-            </div>
-            <div class="bar-row" role="listitem">
-              <div class="bar-label"><span>Bachelors</span><strong>41.48%</strong></div>
-              <div class="bar-track"><span style="width:41.48%"></span></div>
-            </div>
-            <div class="bar-row" role="listitem">
-              <div class="bar-label"><span>HS-grad</span><strong>15.95%</strong></div>
-              <div class="bar-track"><span style="width:15.95%"></span></div>
-            </div>
+          <div class="figure-gallery">
+            <details class="figure-card">
+              <summary>Original cancellation class counts</summary>
+              <div class="chart-content">
+                <img src="images/hotel-cancellation-distribution.png" alt="Bar chart of non-cancelled and cancelled hotel bookings" loading="lazy">
+                <p class="figure-comment">
+                  The 0 class is larger, but cancellations still make up more than one-third of the
+                  original data. When modeling, compare against a majority-class baseline and report
+                  class-specific recall and precision, not accuracy alone.
+                </p>
+              </div>
+            </details>
+            <details class="figure-card">
+              <summary>Cancellation rate by hotel type</summary>
+              <div class="chart-content">
+                <img src="images/hotel-cancellation-by-type.png" alt="Bar chart comparing cancellation rate for Resort Hotel and City Hotel" loading="lazy">
+                <p class="figure-comment">
+                  City Hotel's observed cancellation rate is 41.73%, compared with 27.76% for Resort
+                  Hotel. This is a difference in this dataset, not evidence that hotel type itself
+                  causes cancellations; seasonality, booking channel, and other factors may contribute.
+                </p>
+              </div>
+            </details>
           </div>
-          <p class="chart-note">Within-category percentages are more informative than raw counts when category sizes differ.</p>
-        </article>
-      </div>
-
-      <div class="finding-strip">
-        <strong>Reading the pattern</strong>
-        <p>
-          Higher education categories have larger observed &gt;50K shares in this dataset.
-          This is an association, not evidence that education alone causes higher income;
-          the chart does not control for age, occupation, hours, or other factors.
-        </p>
-      </div>
         </div>
       </details>
 
       <details class="eda-accordion">
-        <summary>EDA charts and category patterns</summary>
+        <summary>Numerical features and outliers</summary>
         <div class="accordion-content">
-      <div class="figure-gallery">
-        <div class="gallery-heading">
-          <div class="card-kicker">NOTEBOOK FIGURES</div>
-          <h3>EDA charts</h3>
-          <p>Original plots exported from the saved notebook outputs.</p>
-        </div>
-        <div class="figure-grid">
-          <details class="figure-card">
-            <summary>Missing values by feature</summary>
-            <div class="chart-content">
-              <img src="images/missing-values.png" alt="Bar chart showing missing-value percentages for occupation, workclass, and native country" loading="lazy">
-              <p class="figure-comment">Occupation and workclass each lack about 5.6% of values; native-country is missing less often (1.79%). These categorical fields need an explicit missing-value strategy before modeling.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Numerical feature distributions</summary>
-            <div class="chart-content">
-              <img src="images/numeric-distributions.png" alt="Histograms showing the distributions of the six numerical features" loading="lazy">
-              <p class="figure-comment">Age and fnlwgt have longer right tails, while education-num is discrete. Capital gains and losses are concentrated at zero; hours-per-week has a strong peak around 40. Scaling and transformation choices should account for these shapes.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Education category counts</summary>
-            <div class="chart-content">
-              <img src="images/education-distribution.png" alt="Count plot of observations across education categories" loading="lazy">
-              <p class="figure-comment">HS-grad is the largest group (10,501), followed by Some-college (7,291) and Bachelors (5,355). The uneven category sizes make within-category rates more useful than counts for comparing income.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Workclass category counts</summary>
-            <div class="chart-content">
-              <img src="images/workclass-distribution.png" alt="Count plot of observations across workclass categories" loading="lazy">
-              <p class="figure-comment">Private employment dominates (22,696 records). Without-pay and Never-worked are rare categories, so model results for those groups may be unstable; missing workclass values are not shown as a separate bar here.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Income class distribution</summary>
-            <div class="chart-content">
-              <img src="images/income-class-distribution.png" alt="Count plot comparing the less-than-or-equal-to-50K and greater-than-50K income classes" loading="lazy">
-              <p class="figure-comment">The ≤50K class accounts for 75.92% of records, versus 24.08% for &gt;50K. Use a stratified split and report per-class precision, recall, and F1 rather than relying on accuracy alone.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Income counts by education</summary>
-            <div class="chart-content">
-              <img src="images/income-by-education-counts.png" alt="Counts of income classes within each education category" loading="lazy">
-              <p class="figure-comment">The lower-income bar is longer in most education groups, partly reflecting the overall class imbalance and category sizes. Compare proportions within each education group—not these raw counts—to judge how income mix differs.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>&gt;50K share by education</summary>
-            <div class="chart-content">
-              <img src="images/high-income-share-by-education.png" alt="Horizontal bar chart of the high-income percentage for each education category" loading="lazy">
-              <p class="figure-comment">The observed &gt;50K share is highest for Doctorate (74.09%) and Prof-school (73.44%), and is 15.95% for HS-grad. Smaller education groups have fewer observations, and this descriptive association does not establish causation.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Age distribution by income</summary>
-            <div class="chart-content">
-              <img src="images/age-by-income.png" alt="Age distributions compared by income class" loading="lazy">
-              <p class="figure-comment">The &gt;50K age distribution is shifted toward older ages, with more density around the 40s; the ≤50K group is more concentrated among younger adults. The distributions overlap substantially, so age alone does not separate the classes.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Weekly hours by income</summary>
-            <div class="chart-content">
-              <img src="images/hours-by-income.png" alt="Boxplots comparing weekly working hours by income class" loading="lazy">
-              <p class="figure-comment">The &gt;50K group has a wider central spread and its upper quartile is higher, while both groups contain unusually low and high reported hours. These are observations to investigate, not automatic reasons to remove records.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Numerical feature correlations</summary>
-            <div class="chart-content">
-              <img src="images/numeric-correlation.png" alt="Correlation heatmap for the six numerical features" loading="lazy">
-              <p class="figure-comment">Pairwise Pearson correlations among numeric predictors are weak; the largest off-diagonal value is 0.15 between education-num and hours-per-week. This only captures linear numeric relationships and does not assess categorical predictors or associations with income.</p>
-            </div>
-          </details>
-        </div>
-      </div>
+          <div class="analysis-grid">
+            <article class="analysis-card">
+              <div class="card-kicker">NUMERIC PROFILE</div>
+              <h3>Lead time and stay lengths are right-skewed</h3>
+              <p class="card-description">Selected descriptive statistics from the original dataset:</p>
+              <div class="table-wrap">
+                <table>
+                  <caption>Selected numerical features</caption>
+                  <thead><tr><th scope="col">Feature</th><th scope="col">Median</th><th scope="col">Mean</th><th scope="col">Maximum</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Lead time (days)</th><td>69</td><td>104.01</td><td>737</td></tr>
+                    <tr><th scope="row">ADR</th><td>94.58</td><td>101.83</td><td>5,400</td></tr>
+                    <tr><th scope="row">Week nights</th><td>2</td><td>2.50</td><td>50</td></tr>
+                    <tr><th scope="row">Weekend nights</th><td>1</td><td>0.93</td><td>19</td></tr>
+                    <tr><th scope="row">Adults</th><td>2</td><td>1.86</td><td>55</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="chart-note">ADR is the average daily rate recorded for a booking.</p>
+            </article>
+            <article class="analysis-card">
+              <div class="card-kicker">IQR SCREENING</div>
+              <h3>Outlier flags are a review aid, not a delete rule</h3>
+              <p class="card-description">
+                The notebook flags 3,005 lead-time values (2.52%) and 3,793 ADR values (3.18%) with
+                the IQR rule. ADR reaches -6.38 and 5,400 in the raw data, so extreme or implausible
+                values deserve validation; the rule alone cannot distinguish errors from unusual bookings.
+              </p>
+            </article>
+          </div>
+          <div class="figure-gallery">
+            <details class="figure-card">
+              <summary>Distributions of selected numerical features</summary>
+              <div class="chart-content">
+                <img src="images/hotel-numeric-distributions.png" alt="Histograms of lead time, ADR, adults, children, babies, and stay lengths" loading="lazy">
+                <p class="figure-comment">
+                  Lead time and ADR have long right tails, while guest counts and night counts are
+                  concentrated at small values. Children and babies are zero for most bookings.
+                  Transformations or robust scaling may help some models, but should be chosen after
+                  checking model behavior.
+                </p>
+              </div>
+            </details>
+            <details class="figure-card">
+              <summary>Lead-time boxplot</summary>
+              <div class="chart-content">
+                <img src="images/hotel-outliers-lead-time.png" alt="Boxplot of booking lead time in days" loading="lazy">
+                <p class="figure-comment">
+                  The central range is much shorter than the longest lead times, producing a visible
+                  upper tail and IQR flags. Values as high as 737 days should be checked for validity,
+                  but long advance booking windows can be genuine.
+                </p>
+              </div>
+            </details>
+            <details class="figure-card">
+              <summary>Average daily rate (ADR) boxplot</summary>
+              <div class="chart-content">
+                <img src="images/hotel-outliers-adr.png" alt="Boxplot of average daily rate, with a long right tail and extreme high value" loading="lazy">
+                <p class="figure-comment">
+                  Most ADR values sit in a relatively narrow range, with a long upper tail and an
+                  extreme maximum of 5,400. The raw minimum is negative (-6.38); inspect such records
+                  and document any correction or exclusion before modeling.
+                </p>
+              </div>
+            </details>
+          </div>
         </div>
       </details>
 
       <details class="eda-accordion">
-        <summary>Outlier inspection</summary>
+        <summary>Cancellation by deposit policy and arrival month</summary>
         <div class="accordion-content">
-        <div class="gallery-heading outlier-heading">
-          <p>Notebook IQR boxplots. Flagged values need contextual review and are not automatically errors.</p>
-        </div>
-        <div class="figure-gallery">
-        <div class="figure-grid outlier-grid">
-          <details class="figure-card">
-            <summary>Age</summary>
-            <div class="chart-content">
-              <img src="images/outliers-age.png" alt="IQR boxplot for age" loading="lazy">
-              <p class="figure-comment">The IQR rule flags 143 ages (0.44%), mostly at the upper end. The observed maximum is 90, which may be unusual but is not inherently invalid; check domain rules before treating these as errors.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Final weight (fnlwgt)</summary>
-            <div class="chart-content">
-              <img src="images/outliers-fnlwgt.png" alt="IQR boxplot for fnlwgt" loading="lazy">
-              <p class="figure-comment">There are 992 flagged values (3.05%) in the long upper tail, extending to 1,484,705. Since fnlwgt is a sampling weight, extreme values need interpretation in context rather than automatic deletion.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Education number</summary>
-            <div class="chart-content">
-              <img src="images/outliers-education-num.png" alt="IQR boxplot for education number" loading="lazy">
-              <p class="figure-comment">The IQR rule flags 1,198 records (3.68%) at the low end. Education-num is a discrete ordinal code, so these valid lower education levels should not be treated as erroneous continuous-value outliers.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Capital gain</summary>
-            <div class="chart-content">
-              <img src="images/outliers-capital-gain.png" alt="IQR boxplot for capital gain" loading="lazy">
-              <p class="figure-comment">Because both quartiles are zero, the IQR rule flags 2,712 positive values (8.33%) as outliers. This is a zero-inflated distribution; positive gains may be meaningful observations, not data errors.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Capital loss</summary>
-            <div class="chart-content">
-              <img src="images/outliers-capital-loss.png" alt="IQR boxplot for capital loss" loading="lazy">
-              <p class="figure-comment">The quartiles are also zero for capital-loss, so 1,519 positive values (4.67%) are flagged. Preserve or transform them based on the modeling objective rather than dropping them solely due to the boxplot.</p>
-            </div>
-          </details>
-          <details class="figure-card">
-            <summary>Hours per week</summary>
-            <div class="chart-content">
-              <img src="images/outliers-hours-per-week.png" alt="IQR boxplot for hours worked per week" loading="lazy">
-              <p class="figure-comment">The IQR rule flags 9,008 records (27.66%) outside 32.5–52.5 hours. The large share shows that a mechanical cutoff is too aggressive here; part-time and long-hour work patterns may be valid.</p>
-            </div>
-          </details>
-        </div>
-      </div>
+          <div class="analysis-grid">
+            <article class="analysis-card">
+              <div class="card-kicker">DEPOSIT TYPE</div>
+              <h3>Non-refundable bookings show very high cancellation</h3>
+              <p class="card-description">The notebook reports cancellation rate alongside group size:</p>
+              <div class="table-wrap">
+                <table>
+                  <caption>Cancellation rate by deposit type</caption>
+                  <thead><tr><th scope="col">Deposit type</th><th scope="col">Bookings</th><th scope="col">Cancelled</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Non Refund</th><td>14,587</td><td>99.36%</td></tr>
+                    <tr><th scope="row">No Deposit</th><td>104,641</td><td>28.38%</td></tr>
+                    <tr><th scope="row">Refundable</th><td>162</td><td>22.22%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+            <article class="analysis-card">
+              <div class="card-kicker">OTHER GROUPS</div>
+              <h3>Rates vary across customer and market segments</h3>
+              <p class="card-description">
+                Transient customers have a 40.75% cancellation rate (89,613 bookings), versus 10.23%
+                for Group customers (577 bookings). Groups market segment is 61.06% (19,811 bookings),
+                while Direct is 15.34% (12,606 bookings). Group sizes differ, so rates should be read with counts.
+              </p>
+            </article>
+          </div>
+          <div class="figure-gallery">
+            <details class="figure-card">
+              <summary>Cancellation rate by deposit type</summary>
+              <div class="chart-content">
+                <img src="images/hotel-cancellation-by-deposit.png" alt="Bar chart comparing cancellation rate for no-deposit, refundable, and non-refundable bookings" loading="lazy">
+                <p class="figure-comment">
+                  Non Refund bookings show a 99.36% cancellation rate in the saved notebook summary,
+                  compared with 28.38% for No Deposit and 22.22% for Refundable. The Refundable group
+                  contains only 162 bookings; investigate booking definitions and sample size before
+                  drawing broad conclusions.
+                </p>
+              </div>
+            </details>
+            <details class="figure-card">
+              <summary>Cancellation rate by arrival month</summary>
+              <div class="chart-content">
+                <img src="images/hotel-cancellation-by-month.png" alt="Bar chart of cancellation percentage by arrival month from January to December" loading="lazy">
+                <p class="figure-comment">
+                  Monthly rates vary: the chart peaks around June and is lowest around November.
+                  This suggests seasonality in the observed bookings, but the plot combines years;
+                  it does not separate seasonal effects from changes between years or booking mix.
+                </p>
+              </div>
+            </details>
+          </div>
         </div>
       </details>
     </section>
 
     <section id="assessment" class="section container assessment-section">
-      <div class="section-number">03 / EVALUATION & NEXT STEPS</div>
+      <div class="section-number">03 / DATA PREPARATION & ASSESSMENT</div>
       <div class="section-heading">
-        <h2>What to trust — <em>and what not to.</em></h2>
-        <p>A critical assessment of the current analysis and its readiness for modeling.</p>
+        <h2>Prepare carefully <em>before modeling.</em></h2>
+        <p>The supplied notebook covers EDA and feature preparation; it does not report fitted-model results.</p>
       </div>
       <div class="assessment-grid">
         <article class="assessment-card">
           <span class="assessment-index">01</span>
-          <h3>Useful first-pass EDA</h3>
+          <h3>Handle missing values deliberately</h3>
           <p>
-            The notebook establishes the dataset shape and types, quantifies nulls and duplicates,
-            profiles numerical features, and compares the target across education levels. These
-            checks surface class imbalance, incomplete records, and skewed numeric fields before
-            any model is trained.
+            Company is absent for 94.31% of rows and agent for 13.69%. The notebook imports
+            imputation tools, but final imputation decisions should be fitted on training data only.
+            Evaluate whether company adds useful signal given its sparse coverage.
           </p>
         </article>
         <article class="assessment-card">
           <span class="assessment-index">02</span>
-          <h3>Cleaning is not finished</h3>
+          <h3>Guard against target leakage</h3>
           <p>
-            Only duplicate rows are removed in the saved workflow. Missing values remain in
-            workclass, occupation, and native-country; a model pipeline still needs explicit
-            imputation or a documented missing-category strategy. Outlier flags should be reviewed,
-            not automatically deleted: zero-inflated capital fields and long-tailed hours can make
-            the IQR rule flag valid observations.
+            Reservation status and reservation status date describe the outcome and are excluded
+            from the predictor set in the notebook. Keep that exclusion; otherwise the model could
+            learn information unavailable at the time a booking needs a prediction.
           </p>
         </article>
         <article class="assessment-card">
           <span class="assessment-index">03</span>
-          <h3>Evaluate beyond accuracy</h3>
+          <h3>Check the deduplication effect</h3>
           <p>
-            No trained model or validation metrics are reported in this notebook. For a fair next
-            step, use a stratified train/test split and a majority-class baseline, then report
-            precision, recall, F1, and a confusion matrix for the &gt;50K class. Consider PR-AUC
-            alongside ROC-AUC because the target classes are uneven.
+            Exact duplicate removal drops 31,994 rows and changes the cancellation share from 37.04%
+            to 27.49%. Confirm whether repeated rows are true duplicates or meaningful repeated
+            booking records, and report results against a clearly defined dataset version.
           </p>
         </article>
         <article class="assessment-card">
           <span class="assessment-index">04</span>
-          <h3>Check features and fairness</h3>
+          <h3>No model metrics are available yet</h3>
           <p>
-            <code>education</code> and <code>education-num</code> encode closely related information;
-            assess their joint use and avoid train/test leakage by fitting preprocessing only on
-            training data. Since sex and race are present, inspect subgroup error rates and treat
-            any predictive findings as historical associations, not objective judgments about people.
+            Although model classes and metric functions are imported, the notebook ends after
+            defining the cleaned feature matrix and target. Next, use a stratified holdout split,
+            train a baseline and candidate models, then report precision, recall, F1, ROC-AUC, and
+            a confusion matrix for cancellation.
           </p>
         </article>
       </div>
       <p class="scope-note">
-        Scope note: this page summarizes the available EDA outputs. It does not claim model
-        performance, causal effects, or fairness guarantees.
+        Cancellation rates shown here are descriptive summaries from the original data unless
+        explicitly labeled as post-deduplication. They do not establish causal effects.
       </p>
     </section>
   </main>
 
   <footer class="tabular-footer">
-    <span>DATA261 · TABULAR ANALYSIS</span>
+    <span>PF4DS · HOTEL BOOKING DEMAND</span>
     <a href="../">Back to portfolio ↑</a>
   </footer>
 </body>
