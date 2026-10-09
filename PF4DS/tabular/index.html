@@ -76,6 +76,62 @@
           Kaggle dataset ↗
         </a>
       </div>
+      <details class="eda-accordion dataset-dictionary">
+        <summary>Dataset column guide (32 columns)</summary>
+        <div class="accordion-content">
+          <p class="card-description">
+            Each row represents a hotel booking. The guide below explains the fields in the source
+            dataset; <strong>is_canceled</strong> is the prediction target. Reservation outcome
+            fields at the end are known after the booking and should not be used as predictors for
+            an advance cancellation prediction.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <caption>Hotel Booking Demand dataset dictionary</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Column</th>
+                  <th scope="col">What it describes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><code>hotel</code></th><td>Hotel type: City Hotel or Resort Hotel.</td></tr>
+                <tr><th scope="row"><code>is_canceled</code></th><td>Target label: 1 if the booking was canceled, 0 otherwise.</td></tr>
+                <tr><th scope="row"><code>lead_time</code></th><td>Days between the booking date and the guest's arrival.</td></tr>
+                <tr><th scope="row"><code>arrival_date_year</code></th><td>Calendar year of the planned arrival.</td></tr>
+                <tr><th scope="row"><code>arrival_date_month</code></th><td>Month of the planned arrival.</td></tr>
+                <tr><th scope="row"><code>arrival_date_week_number</code></th><td>Week number of the planned arrival date.</td></tr>
+                <tr><th scope="row"><code>arrival_date_day_of_month</code></th><td>Day of the month of the planned arrival.</td></tr>
+                <tr><th scope="row"><code>stays_in_weekend_nights</code></th><td>Weekend nights (Saturday or Sunday) booked.</td></tr>
+                <tr><th scope="row"><code>stays_in_week_nights</code></th><td>Weekday nights (Monday to Friday) booked.</td></tr>
+                <tr><th scope="row"><code>adults</code></th><td>Number of adults in the booking.</td></tr>
+                <tr><th scope="row"><code>children</code></th><td>Number of children in the booking; four records are missing this value.</td></tr>
+                <tr><th scope="row"><code>babies</code></th><td>Number of babies in the booking.</td></tr>
+                <tr><th scope="row"><code>meal</code></th><td>Meal package booked; for example, BB (bed and breakfast) or SC (self-catering).</td></tr>
+                <tr><th scope="row"><code>country</code></th><td>Country of origin of the guest; missing for some bookings.</td></tr>
+                <tr><th scope="row"><code>market_segment</code></th><td>Market segment through which the booking was made, such as Direct, Groups, or Online TA.</td></tr>
+                <tr><th scope="row"><code>distribution_channel</code></th><td>Distribution channel that delivered the booking, such as Direct, Corporate, or TA/TO.</td></tr>
+                <tr><th scope="row"><code>is_repeated_guest</code></th><td>1 if the guest has previously booked at the hotel, 0 otherwise.</td></tr>
+                <tr><th scope="row"><code>previous_cancellations</code></th><td>Earlier bookings by the guest that were canceled before this booking.</td></tr>
+                <tr><th scope="row"><code>previous_bookings_not_canceled</code></th><td>Earlier bookings by the guest that were not canceled.</td></tr>
+                <tr><th scope="row"><code>reserved_room_type</code></th><td>Room type code originally requested by the guest.</td></tr>
+                <tr><th scope="row"><code>assigned_room_type</code></th><td>Room type code ultimately assigned to the guest.</td></tr>
+                <tr><th scope="row"><code>booking_changes</code></th><td>Number of changes made to the booking from creation until arrival or cancellation.</td></tr>
+                <tr><th scope="row"><code>deposit_type</code></th><td>Deposit policy: No Deposit, Non Refund, or Refundable.</td></tr>
+                <tr><th scope="row"><code>agent</code></th><td>ID of the travel agent that made the booking, when applicable; often missing.</td></tr>
+                <tr><th scope="row"><code>company</code></th><td>ID of the company or entity responsible for the booking, when applicable; mostly missing.</td></tr>
+                <tr><th scope="row"><code>days_in_waiting_list</code></th><td>Days the booking spent on the waiting list before confirmation.</td></tr>
+                <tr><th scope="row"><code>customer_type</code></th><td>Booking type, such as Transient, Contract, Group, or Transient-Party.</td></tr>
+                <tr><th scope="row"><code>adr</code></th><td>Average daily rate for the booking (average revenue per occupied room per day).</td></tr>
+                <tr><th scope="row"><code>required_car_parking_spaces</code></th><td>Number of car parking spaces requested.</td></tr>
+                <tr><th scope="row"><code>total_of_special_requests</code></th><td>Number of special requests made by the guest.</td></tr>
+                <tr><th scope="row"><code>reservation_status</code></th><td>Final reservation outcome (Canceled, Check-Out, or No-Show); outcome-related leakage for advance prediction.</td></tr>
+                <tr><th scope="row"><code>reservation_status_date</code></th><td>Date the final reservation status was last set; outcome-related leakage for advance prediction.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
     </section>
 
     <section id="eda" class="section container eda-section">
