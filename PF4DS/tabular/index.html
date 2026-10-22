@@ -447,6 +447,19 @@
         <strong>Validity checks after cleaning</strong>
         <p>Negative children: 0 · Negative ADR: 0 · Invalid <code>is_canceled</code> values: 0. There are 12,193 zero-valued agents and 452 “Unknown” countries; these are encoded values, not missing entries.</p>
       </div>
+      <div class="figure-gallery">
+        <div class="gallery-heading">
+          <h3>Cancellation distribution after cleaning</h3>
+          <p>Notebook output from the cleaned dataset (87,396 bookings).</p>
+        </div>
+        <details class="figure-card">
+          <summary>View cleaned target distribution</summary>
+          <div class="chart-content">
+            <img src="images/hotel-target-after-cleaning.png" alt="Bar chart showing the cleaned hotel-booking target distribution: 72.51 percent not canceled and 27.49 percent canceled" loading="lazy">
+            <p class="figure-comment">After duplicate removal and data cleaning, 72.51% of bookings are not canceled and 27.49% are canceled. This distribution supports the class-balance summary above and provides the post-cleaning comparison to the original 37.04% cancellation rate.</p>
+          </div>
+        </details>
+      </div>
     </section>
 
     <section id="assessment" class="section container assessment-section">
