@@ -17,6 +17,8 @@
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#overview">Overview</a>
         <a href="#eda">EDA</a>
+        <a href="#cleaning">Cleaning</a>
+        <a href="#post-cleaning">Post-cleaning EDA</a>
         <a href="#assessment">Assessment</a>
       </nav>
     </div>
@@ -382,8 +384,73 @@
       </details>
     </section>
 
+
+    <section id="cleaning" class="section container assessment-section">
+      <div class="section-number">03 / DATA CLEANING &amp; PREPROCESSING</div>
+      <div class="section-heading">
+        <h2>Prepare the bookings <em>for analysis.</em></h2>
+        <p>Cleaning steps documented in the notebook, with explicit treatment for missing, duplicate, and invalid values.</p>
+      </div>
+      <div class="assessment-grid">
+        <article class="assessment-card">
+          <span class="assessment-index">01</span>
+          <h3>Remove exact duplicate rows</h3>
+          <p>The source has 119,390 rows. Removing 31,994 exact duplicates leaves 87,396 bookings. The cancellation share changes from 37.04% to 27.49%, so downstream results should identify which dataset version they use.</p>
+        </article>
+        <article class="assessment-card">
+          <span class="assessment-index">02</span>
+          <h3>Handle missing data by meaning</h3>
+          <p><code>company</code> is dropped due to its high missing rate. Missing <code>agent</code> values are encoded as 0, missing <code>country</code> as “Unknown”, and missing <code>children</code> values are filled with the median. The post-cleaning summary reports no nulls.</p>
+        </article>
+        <article class="assessment-card">
+          <span class="assessment-index">03</span>
+          <h3>Set types and prevent leakage</h3>
+          <p>Column names are trimmed, <code>agent</code> is cast to an integer identifier, and <code>is_canceled</code> is validated as a binary integer target. <code>reservation_status</code> and <code>reservation_status_date</code> are excluded from predictors because they reveal the booking outcome.</p>
+        </article>
+        <article class="assessment-card">
+          <span class="assessment-index">04</span>
+          <h3>Correct invalid ADR; review outliers</h3>
+          <p>The notebook finds one negative ADR, replaces it with a missing value, then fills it with the median. IQR flags are used to inspect unusual values rather than delete them automatically; long lead times or high ADR can be valid bookings.</p>
+        </article>
+      </div>
+      <div class="finding-strip">
+        <strong>Preprocessing for modeling</strong>
+        <p>Treat <code>agent</code> as a categorical identifier rather than a continuous quantity. Fit any remaining imputation inside a pipeline on training data only to avoid leaking information across the split.</p>
+      </div>
+    </section>
+
+    <section id="post-cleaning" class="section container assessment-section">
+      <div class="section-number">04 / EDA AFTER PROCESSING</div>
+      <div class="section-heading">
+        <h2>Recheck completeness, <em>shape and validity.</em></h2>
+        <p>The notebook repeats quality checks after cleaning and reviews the target distribution on the resulting data.</p>
+      </div>
+      <div class="analysis-grid">
+        <article class="analysis-card">
+          <div class="card-kicker">COMPLETENESS &amp; TYPES</div>
+          <h3>87,396 rows · 29 columns · no nulls</h3>
+          <p class="card-description">The cleaned table has 17 integer, 2 floating-point, and 10 object columns. The children and ADR fields are numeric; booking, customer, and outcome categories remain categorical where appropriate.</p>
+          <p class="chart-note">The notebook’s later duplicate check reports 266 duplicates, even though the immediate post-deduplication check reports zero. Verify this discrepancy after the cleaning and imputation steps.</p>
+        </article>
+        <article class="analysis-card">
+          <div class="card-kicker">CANCELLATION DISTRIBUTION</div>
+          <h3>About one in four cleaned bookings was canceled</h3>
+          <p class="card-description">On the deduplicated dataset, 72.51% are not canceled and 27.49% are canceled. Account for this class imbalance when selecting model metrics and splitting data.</p>
+          <div class="bar-list" role="list" aria-label="Cancellation proportions after cleaning">
+            <div class="bar-row" role="listitem"><div class="bar-label"><span>Not canceled (0)</span><strong>72.51%</strong></div><div class="bar-track"><span style="width:72.51%"></span></div></div>
+            <div class="bar-row" role="listitem"><div class="bar-label"><span>Canceled (1)</span><strong>27.49%</strong></div><div class="bar-track"><span style="width:27.49%"></span></div></div>
+          </div>
+          <p class="chart-note">Proportions are from the saved notebook output: 0.725102 and 0.274898.</p>
+        </article>
+      </div>
+      <div class="finding-strip">
+        <strong>Validity checks after cleaning</strong>
+        <p>Negative children: 0 · Negative ADR: 0 · Invalid <code>is_canceled</code> values: 0. There are 12,193 zero-valued agents and 452 “Unknown” countries; these are encoded values, not missing entries.</p>
+      </div>
+    </section>
+
     <section id="assessment" class="section container assessment-section">
-      <div class="section-number">03 / DATA PREPARATION & ASSESSMENT</div>
+      <div class="section-number">05 / MODELING ASSESSMENT</div>
       <div class="section-heading">
         <h2>Prepare carefully <em>before modeling.</em></h2>
         <p>The supplied notebook covers EDA and feature preparation; it does not report fitted-model results.</p>
