@@ -443,6 +443,63 @@
           <p class="chart-note">Proportions are from the saved notebook output: 0.725102 and 0.274898.</p>
         </article>
       </div>
+      <div class="figure-gallery">
+        <div class="gallery-heading">
+          <h3>Feature summaries after cleaning</h3>
+          <p>Descriptive statistics reported by the notebook for the cleaned 87,396-row dataset.</p>
+        </div>
+        <details class="eda-accordion">
+          <summary>Numeric summary (19 columns)</summary>
+          <div class="accordion-content table-wrap">
+            <table>
+              <caption>Count is 87,396 for every numeric feature; values rounded to two decimals where needed.</caption>
+              <thead><tr><th scope="col">Feature</th><th scope="col">Mean</th><th scope="col">Std.</th><th scope="col">Min</th><th scope="col">Median</th><th scope="col">Max</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><code>is_canceled</code></th><td>0.27</td><td>0.45</td><td>0</td><td>0</td><td>1</td></tr>
+                <tr><th scope="row"><code>lead_time</code></th><td>79.89</td><td>86.05</td><td>0</td><td>49</td><td>737</td></tr>
+                <tr><th scope="row"><code>arrival_date_year</code></th><td>2016.21</td><td>0.69</td><td>2015</td><td>2016</td><td>2017</td></tr>
+                <tr><th scope="row"><code>arrival_date_week_number</code></th><td>26.84</td><td>13.67</td><td>1</td><td>27</td><td>53</td></tr>
+                <tr><th scope="row"><code>arrival_date_day_of_month</code></th><td>15.82</td><td>8.84</td><td>1</td><td>16</td><td>31</td></tr>
+                <tr><th scope="row"><code>stays_in_weekend_nights</code></th><td>1.01</td><td>1.03</td><td>0</td><td>1</td><td>19</td></tr>
+                <tr><th scope="row"><code>stays_in_week_nights</code></th><td>2.63</td><td>2.05</td><td>0</td><td>2</td><td>50</td></tr>
+                <tr><th scope="row"><code>adults</code></th><td>1.88</td><td>0.63</td><td>0</td><td>2</td><td>55</td></tr>
+                <tr><th scope="row"><code>children</code></th><td>0.14</td><td>0.46</td><td>0</td><td>0</td><td>10</td></tr>
+                <tr><th scope="row"><code>babies</code></th><td>0.01</td><td>0.11</td><td>0</td><td>0</td><td>10</td></tr>
+                <tr><th scope="row"><code>is_repeated_guest</code></th><td>0.04</td><td>0.19</td><td>0</td><td>0</td><td>1</td></tr>
+                <tr><th scope="row"><code>previous_cancellations</code></th><td>0.03</td><td>0.37</td><td>0</td><td>0</td><td>26</td></tr>
+                <tr><th scope="row"><code>previous_bookings_not_canceled</code></th><td>0.18</td><td>1.73</td><td>0</td><td>0</td><td>72</td></tr>
+                <tr><th scope="row"><code>booking_changes</code></th><td>0.27</td><td>0.73</td><td>0</td><td>0</td><td>21</td></tr>
+                <tr><th scope="row"><code>agent</code></th><td>81.00</td><td>109.95</td><td>0</td><td>9</td><td>535</td></tr>
+                <tr><th scope="row"><code>days_in_waiting_list</code></th><td>0.75</td><td>10.02</td><td>0</td><td>0</td><td>391</td></tr>
+                <tr><th scope="row"><code>adr</code></th><td>106.34</td><td>55.01</td><td>0</td><td>98.10</td><td>5,400</td></tr>
+                <tr><th scope="row"><code>required_car_parking_spaces</code></th><td>0.08</td><td>0.28</td><td>0</td><td>0</td><td>8</td></tr>
+                <tr><th scope="row"><code>total_of_special_requests</code></th><td>0.70</td><td>0.83</td><td>0</td><td>0</td><td>5</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+        <details class="eda-accordion">
+          <summary>Categorical summary (10 columns)</summary>
+          <div class="accordion-content table-wrap">
+            <table>
+              <caption>Count, number of unique values, most frequent value, and its frequency.</caption>
+              <thead><tr><th scope="col">Feature</th><th scope="col">Count</th><th scope="col">Unique</th><th scope="col">Most frequent</th><th scope="col">Frequency</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><code>hotel</code></th><td>87,396</td><td>2</td><td>City Hotel</td><td>53,428</td></tr>
+                <tr><th scope="row"><code>arrival_date_month</code></th><td>87,396</td><td>12</td><td>August</td><td>11,257</td></tr>
+                <tr><th scope="row"><code>meal</code></th><td>87,396</td><td>5</td><td>BB</td><td>67,978</td></tr>
+                <tr><th scope="row"><code>country</code></th><td>87,396</td><td>178</td><td>PRT</td><td>27,453</td></tr>
+                <tr><th scope="row"><code>market_segment</code></th><td>87,396</td><td>8</td><td>Online TA</td><td>51,618</td></tr>
+                <tr><th scope="row"><code>distribution_channel</code></th><td>87,396</td><td>5</td><td>TA/TO</td><td>69,141</td></tr>
+                <tr><th scope="row"><code>reserved_room_type</code></th><td>87,396</td><td>10</td><td>A</td><td>56,552</td></tr>
+                <tr><th scope="row"><code>assigned_room_type</code></th><td>87,396</td><td>12</td><td>A</td><td>46,313</td></tr>
+                <tr><th scope="row"><code>deposit_type</code></th><td>87,396</td><td>3</td><td>No Deposit</td><td>86,251</td></tr>
+                <tr><th scope="row"><code>customer_type</code></th><td>87,396</td><td>4</td><td>Transient</td><td>71,986</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
       <div class="finding-strip">
         <strong>Validity checks after cleaning</strong>
         <p>Negative children: 0 · Negative ADR: 0 · Invalid <code>is_canceled</code> values: 0. There are 12,193 zero-valued agents and 452 “Unknown” countries; these are encoded values, not missing entries.</p>
