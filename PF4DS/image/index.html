@@ -43,8 +43,10 @@
         <article class="stat-card"><span class="stat-value">10,015</span><span class="stat-label">images matched to a target</span></article>
         <article class="stat-card"><span class="stat-value">7</span><span class="stat-label">diagnostic classes</span></article>
       </div>
-      <div class="finding-strip"><strong>Validation result</strong><p>All 10,015 metadata rows matched an image file and had a target label.</p></div>
-      <p class="source-inline"><strong>Source:</strong> <a href="https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000" target="_blank" rel="noopener noreferrer">HAM10000 dataset on Kaggle &nearr;</a> &middot; ViDIR Group, Medical University of Vienna.</p>
+      <div class="overview-note">
+        <p>The metadata links each image through <strong>image_id</strong> and stores its diagnosis in <strong>dx</strong>. All <strong>10,015 rows</strong> matched an image and a target label.</p>
+        <a href="https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000" target="_blank" rel="noopener noreferrer">Kaggle dataset &nearr;</a>
+      </div>
       <p class="scope-note">The target distribution is imbalanced: the nevus class (nv) contains about two thirds of the images. Class-aware evaluation and sampling should be considered in later modeling.</p>
     </section>
     <section id="classes" class="section section-muted">

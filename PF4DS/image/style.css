@@ -27,7 +27,4 @@
 @media(max-width:520px) { .sample-grid { grid-template-columns:1fr; } }
 
 .section#overview > .stat-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
-.source-inline { margin-top:18px; color:var(--muted); font-size:13px; }
-.source-inline strong { color:var(--accent); }
-.source-inline a { color:var(--text); text-decoration:underline; text-decoration-color:var(--accent); text-underline-offset:3px; }
 @media(max-width:800px) { .section#overview > .stat-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
