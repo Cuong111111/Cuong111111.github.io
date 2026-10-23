@@ -50,6 +50,10 @@
   margin-bottom: 42px;
 }
 
+.section-number {
+  color: var(--accent);
+}
+
 .section-heading h2 {
   max-width: 800px;
 }
