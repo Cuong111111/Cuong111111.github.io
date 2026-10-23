@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HAM10000 image dataset validation and exploratory analysis for PF4DS.">
+  <title>HAM10000 Image Dataset | PF4DS</title>
+  <link rel="stylesheet" href="../style.css?v=11">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="../script.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="navbar container">
+      <a class="brand" href="../">PF<span>4DS</span></a>
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#overview">Overview</a><a href="#classes">Classes</a><a href="#images">Image gallery</a><a href="#properties">Properties</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="image-hero container">
+      <p class="eyebrow">PF4DS / IMAGE DATASET</p>
+      <h1>Skin lesions, <em>in focus.</em></h1>
+      <div class="hero-lower">
+        <p class="hero-description">A quality check and visual exploration of HAM10000 dermatoscopic images, matched to their diagnostic categories.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#overview">Explore the dataset &darr;</a>
+          <a class="button button-secondary" href="https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000" target="_blank" rel="noopener noreferrer">Open dataset &nearr;</a>
+        </div>
+      </div>
+      <div class="hero-caption"><span>DERMATOSCOPY</span><span>10,015 IMAGES</span><span>7 DIAGNOSTIC CLASSES</span></div>
+    </section>
+    <section id="overview" class="section container">
+      <div class="section-number">01 / DATASET OVERVIEW</div>
+      <div class="section-heading"><h2>One image, <em>one diagnosis.</em></h2><p>HAM10000 (Human Against Machine with 10,000 training images) is a collection of dermatoscopic images of common pigmented skin lesions. The notebook matches image filenames to the <code>image_id</code> and uses <code>dx</code> as the target label.</p></div>
+      <div class="stat-grid">
+        <article class="stat-card"><span class="stat-value">10,015</span><span class="stat-label">unique image IDs found</span></article>
+        <article class="stat-card"><span class="stat-value">10,015</span><span class="stat-label">images matched to a target</span></article>
+        <article class="stat-card"><span class="stat-value">7</span><span class="stat-label">diagnostic classes</span></article>
+        <article class="stat-card"><span class="stat-value">0</span><span class="stat-label">duplicate IDs in selected folders</span></article>
+      </div>
+      <div class="finding-strip"><strong>Validation result</strong><p>All 10,015 metadata rows matched an image file and had a target label. The two selected image folders contained 10,015 paths and 10,015 unique IDs; no duplicate IDs were detected.</p></div>
+      <p class="scope-note">The target distribution is imbalanced: the nevus class (nv) contains about two thirds of the images. Class-aware evaluation and sampling should be considered in later modeling.</p>
+    </section>
+    <section id="classes" class="section section-muted">
+      <div class="container">
+        <div class="section-number">02 / TARGET DISTRIBUTION</div>
+        <div class="section-heading"><h2>Seven classes, <em>unevenly represented.</em></h2><p>Counts and percentages among the 10,015 unique images matched to a non-empty diagnostic label.</p></div>
+        <div class="class-layout">
+          <figure class="figure-card"><img src="images/ham10000-class-counts.png" alt="Bar chart showing image counts for the seven HAM10000 target classes" loading="lazy"><figcaption>Image count by target class</figcaption></figure>
+          <figure class="figure-card"><img src="images/ham10000-class-percentages.png" alt="Bar chart showing the percentage of images in each HAM10000 target class" loading="lazy"><figcaption>Share of all matched images</figcaption></figure>
+        </div>
+        <div class="table-wrap class-table"><table><caption>Target labels and image counts from the notebook</caption><thead><tr><th scope="col">Code</th><th scope="col">Diagnosis</th><th scope="col">Images</th><th scope="col">Share</th></tr></thead><tbody>
+          <tr><th scope="row">nv</th><td>Melanocytic nevi</td><td>6,705</td><td>66.95%</td></tr><tr><th scope="row">mel</th><td>Melanoma</td><td>1,113</td><td>11.11%</td></tr><tr><th scope="row">bkl</th><td>Benign keratosis-like lesions</td><td>1,099</td><td>10.97%</td></tr><tr><th scope="row">bcc</th><td>Basal cell carcinoma</td><td>514</td><td>5.13%</td></tr><tr><th scope="row">akiec</th><td>Actinic keratoses / intraepithelial carcinoma</td><td>327</td><td>3.27%</td></tr><tr><th scope="row">vasc</th><td>Vascular lesions</td><td>142</td><td>1.42%</td></tr><tr><th scope="row">df</th><td>Dermatofibroma</td><td>115</td><td>1.15%</td></tr>
+        </tbody></table></div>
+        <p class="scope-note">Class names are the diagnostic abbreviations used by the dataset. The class imbalance means overall accuracy alone may hide weak performance on rare diagnoses.</p>
+      </div>
+    </section>
+    <section id="images" class="section container">
+      <div class="section-number">03 / REPRESENTATIVE IMAGES</div>
+      <div class="section-heading"><h2>Lesions across <em>the categories.</em></h2><p>Notebook samples (three per class) show the visual variation in the dataset. Images are grouped by their <code>dx</code> target and retain their source image IDs.</p></div>
+      <figure class="figure-card gallery-figure"><img src="images/ham10000-class-examples.png" alt="Grid of three representative dermatoscopic images for each of seven HAM10000 target classes, labeled with diagnosis and image ID" loading="lazy"><figcaption>Three sampled images for each target class (fixed random seed)</figcaption></figure>
+      <div class="finding-strip"><strong>How labels are matched</strong><p>The notebook uses the filename stem as <code>image_id</code>, then joins it to the metadata CSV. Images are counted once per ID, so copies in other folders cannot inflate the unique-image total.</p></div>
+    </section>
+    <section id="properties" class="section section-muted">
+      <div class="container">
+        <div class="section-number">04 / IMAGE PROPERTIES</div>
+        <div class="section-heading"><h2>Consistent dimensions, <em>variable file sizes.</em></h2><p>Readable-image checks succeeded for all 10,015 matched images. Every image measures 600 &times; 450 pixels (aspect ratio 1.33); file size varies.</p></div>
+        <div class="property-grid">
+          <figure class="figure-card"><img src="images/ham10000-dimensions.png" alt="Scatter plot of image width versus height by diagnosis; all images have dimensions 600 by 450 pixels" loading="lazy"><figcaption>Width versus height</figcaption></figure>
+          <figure class="figure-card"><img src="images/ham10000-aspect-ratio.png" alt="Histogram of aspect ratios, concentrated at approximately 1.33" loading="lazy"><figcaption>Aspect ratio</figcaption></figure>
+          <figure class="figure-card"><img src="images/ham10000-short-side.png" alt="Histogram showing the shorter side is 450 pixels for every image, above the 128 pixel reference threshold" loading="lazy"><figcaption>Shorter image side</figcaption></figure>
+          <figure class="figure-card"><img src="images/ham10000-file-size.png" alt="Histogram of image file sizes in kilobytes" loading="lazy"><figcaption>File size (KB)</figcaption></figure>
+        </div>
+        <div class="stat-grid property-stats"><article class="stat-card"><span class="stat-value">600 &times; 450</span><span class="stat-label">pixels for every image</span></article><article class="stat-card"><span class="stat-value">270.12 KB</span><span class="stat-label">mean file size</span></article><article class="stat-card"><span class="stat-value">83&ndash;479 KB</span><span class="stat-label">file-size range</span></article><article class="stat-card"><span class="stat-value">10,015 / 10,015</span><span class="stat-label">images readable</span></article></div>
+      </div>
+    </section>
+    <section class="section container source-section">
+      <div class="section-number">05 / SOURCE &amp; METHOD</div>
+      <div class="source-card"><div><h2>Explore the source dataset.</h2><p>Dataset by ViDIR Group, Department of Dermatology, Medical University of Vienna, distributed on Kaggle.</p></div><a class="button button-primary" href="https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000" target="_blank" rel="noopener noreferrer">Kaggle dataset &nearr;</a></div>
+      <p class="scope-note">This page summarizes the saved outputs in the image-analysis notebook. The reported counts describe dataset coverage and image properties; they are not diagnostic guidance or model-performance results.</p>
+    </section>
+  </main>
+  <footer class="tabular-footer"><span>PF4DS &middot; HAM10000 IMAGE DATASET</span><a href="../">Back to portfolio &uarr;</a></footer>
+</body>
+</html>
