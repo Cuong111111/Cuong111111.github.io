@@ -6,7 +6,8 @@
   <meta name="description" content="HAM10000 image dataset validation and exploratory analysis for PF4DS.">
   <title>HAM10000 Image Dataset | PF4DS</title>
   <link rel="stylesheet" href="../style.css?v=11">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../tabular/style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=2">
   <script defer src="../script.js"></script>
 </head>
 <body>
@@ -15,22 +16,24 @@
       <a class="brand" href="../">PF<span>4DS</span></a>
       <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="#overview">Overview</a><a href="#classes">Classes</a><a href="#images">Image gallery</a><a href="#properties">Properties</a>
+        <a href="#overview">Overview</a><a href="#classes">Classes</a><a href="#images">Image gallery</a><a href="#properties">Properties</a><a href="#assessment">Assessment</a>
       </nav>
     </div>
   </header>
   <main>
-    <section class="image-hero container">
-      <p class="eyebrow">PF4DS / IMAGE DATASET</p>
-      <h1>Skin lesions, <em>in focus.</em></h1>
-      <div class="hero-lower">
-        <p class="hero-description">A quality check and visual exploration of HAM10000 dermatoscopic images, matched to their diagnostic categories.</p>
+    <section class="hero container image-hero">
+      <h1>Skin Lesion <span>Images</span></h1>
+      <div class="hero-support">
+        <p class="hero-description">Exploring the HAM10000 dermatoscopic image dataset, its diagnostic classes, class balance, and image properties.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#overview">Explore the dataset &darr;</a>
-          <a class="button button-secondary" href="https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000" target="_blank" rel="noopener noreferrer">Open dataset &nearr;</a>
+          <a href="#overview" class="primary-btn">Explore the dataset &darr;</a>
+          <a href="#assessment" class="secondary-btn">Read the assessment</a>
         </div>
       </div>
-      <div class="hero-caption"><span>DERMATOSCOPY</span><span>10,015 IMAGES</span><span>7 DIAGNOSTIC CLASSES</span></div>
+      <div class="hero-note">
+        <p>10,015 images matched to seven diagnostic categories. Image examples below are grouped into separate class panels.</p>
+        <a href="https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000" target="_blank" rel="noopener noreferrer">View dataset &nearr;</a>
+      </div>
     </section>
     <section id="overview" class="section container">
       <div class="section-number">01 / DATASET OVERVIEW</div>
@@ -85,7 +88,7 @@
         <div class="stat-grid property-stats"><article class="stat-card"><span class="stat-value">600 &times; 450</span><span class="stat-label">pixels for every image</span></article><article class="stat-card"><span class="stat-value">270.12 KB</span><span class="stat-label">mean file size</span></article><article class="stat-card"><span class="stat-value">83&ndash;479 KB</span><span class="stat-label">file-size range</span></article><article class="stat-card"><span class="stat-value">10,015 / 10,015</span><span class="stat-label">images readable</span></article></div>
       </div>
     </section>
-    <section class="section container source-section">
+    <section id="assessment" class="section container assessment-section source-section">
       <div class="section-number">05 / SOURCE &amp; METHOD</div>
       <div class="source-card"><div><h2>Explore the source dataset.</h2><p>Dataset by ViDIR Group, Department of Dermatology, Medical University of Vienna, distributed on Kaggle.</p></div><a class="button button-primary" href="https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000" target="_blank" rel="noopener noreferrer">Kaggle dataset &nearr;</a></div>
       <p class="scope-note">This page summarizes the saved outputs in the image-analysis notebook. The reported counts describe dataset coverage and image properties; they are not diagnostic guidance or model-performance results.</p>
