@@ -7,7 +7,7 @@
   <title>HAM10000 Image Dataset | PF4DS</title>
   <link rel="stylesheet" href="../style.css?v=11">
   <link rel="stylesheet" href="../tabular/style.css?v=5">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
   <script defer src="../script.js"></script>
 </head>
 <body>
@@ -16,7 +16,7 @@
       <a class="brand" href="../">PF<span>4DS</span></a>
       <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="#overview">Overview</a><a href="#classes">Classes</a><a href="#images">Image gallery</a><a href="#properties">Properties</a><a href="#assessment">Assessment</a>
+        <a href="#overview">Overview</a><a href="#classes">Classes</a><a href="#images">Image gallery</a><a href="#properties">Properties</a>
       </nav>
     </div>
   </header>
@@ -27,7 +27,7 @@
         <p class="hero-description">Exploring the HAM10000 dermatoscopic image dataset, its diagnostic classes, class balance, and image properties.</p>
         <div class="hero-actions">
           <a href="#overview" class="primary-btn">Explore the dataset &darr;</a>
-          <a href="#assessment" class="secondary-btn">Read the assessment</a>
+          <a href="#classes" class="secondary-btn">View target classes</a>
         </div>
       </div>
       <div class="hero-note">
@@ -42,9 +42,9 @@
         <article class="stat-card"><span class="stat-value">10,015</span><span class="stat-label">unique image IDs found</span></article>
         <article class="stat-card"><span class="stat-value">10,015</span><span class="stat-label">images matched to a target</span></article>
         <article class="stat-card"><span class="stat-value">7</span><span class="stat-label">diagnostic classes</span></article>
-        <article class="stat-card"><span class="stat-value">0</span><span class="stat-label">duplicate IDs in selected folders</span></article>
       </div>
-      <div class="finding-strip"><strong>Validation result</strong><p>All 10,015 metadata rows matched an image file and had a target label. The two selected image folders contained 10,015 paths and 10,015 unique IDs; no duplicate IDs were detected.</p></div>
+      <div class="finding-strip"><strong>Validation result</strong><p>All 10,015 metadata rows matched an image file and had a target label.</p></div>
+      <p class="source-inline"><strong>Source:</strong> <a href="https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000" target="_blank" rel="noopener noreferrer">HAM10000 dataset on Kaggle &nearr;</a> &middot; ViDIR Group, Medical University of Vienna.</p>
       <p class="scope-note">The target distribution is imbalanced: the nevus class (nv) contains about two thirds of the images. Class-aware evaluation and sampling should be considered in later modeling.</p>
     </section>
     <section id="classes" class="section section-muted">
@@ -86,11 +86,6 @@
         </div>
         <div class="stat-grid property-stats"><article class="stat-card"><span class="stat-value">600 &times; 450</span><span class="stat-label">pixels for every image</span></article><article class="stat-card"><span class="stat-value">270.12 KB</span><span class="stat-label">mean file size</span></article><article class="stat-card"><span class="stat-value">83&ndash;479 KB</span><span class="stat-label">file-size range</span></article><article class="stat-card"><span class="stat-value">10,015 / 10,015</span><span class="stat-label">images readable</span></article></div>
       </div>
-    </section>
-    <section id="assessment" class="section container assessment-section source-section">
-      <div class="section-number">05 / SOURCE &amp; METHOD</div>
-      <div class="source-card"><div><h2>Explore the source dataset.</h2><p>Dataset by ViDIR Group, Department of Dermatology, Medical University of Vienna, distributed on Kaggle.</p></div><a class="button button-primary" href="https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000" target="_blank" rel="noopener noreferrer">Kaggle dataset &nearr;</a></div>
-      <p class="scope-note">This page summarizes the saved outputs in the image-analysis notebook. The reported counts describe dataset coverage and image properties; they are not diagnostic guidance or model-performance results.</p>
     </section>
   </main>
   <footer class="tabular-footer"><span>PF4DS &middot; HAM10000 IMAGE DATASET</span><a href="../">Back to portfolio &uarr;</a></footer>
