@@ -522,3 +522,27 @@ tbody th {
     font-size: 12px;
   }
 }
+
+/* Native SVG replacements for the bar-chart images on the Tabular page. */
+.redrawn-chart {
+  width: 100%;
+  max-width: 820px;
+  margin-inline: auto;
+  overflow-x: auto;
+  background: #fff;
+}
+
+.redrawn-chart svg {
+  display: block;
+  width: 100%;
+  min-width: 560px;
+  height: auto;
+}
+
+.redrawn-chart .chart-title { fill: #252525; font: 16px Arial, sans-serif; }
+.redrawn-chart .chart-grid { stroke: #d8d8d8; stroke-width: 1; }
+.redrawn-chart .chart-axis { fill: #454545; font: 12px Arial, sans-serif; }
+.redrawn-chart .chart-axis-line { stroke: #777; stroke-width: 1; }
+.redrawn-chart .chart-bar { fill: #4f75b5; }
+.redrawn-chart .chart-value { fill: #333; font: 12px Arial, sans-serif; }
+.redrawn-chart .chart-category { fill: #383838; font: 12px Arial, sans-serif; }
