@@ -581,3 +581,13 @@ tbody tr:hover { background: rgba(84, 217, 232, .055); }
 .hotel-histogram-panel .hotel-hist-bar { shape-rendering:crispEdges; }
 @media(max-width:900px) { .hotel-histogram-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .hotel-histogram-panel:last-child:nth-child(2n + 1) { grid-column:1 / -1; width:50%; justify-self:center; } }
 @media(max-width:560px) { .hotel-histogram-grid { grid-template-columns:1fr; } .hotel-histogram-panel:last-child:nth-child(2n + 1) { grid-column:auto; width:100%; } .hotel-histogram-panel svg { min-width:0; } }
+
+
+/* One full-width histogram per row, with the observation range available on hover. */
+.hotel-histogram-grid { grid-template-columns:minmax(0,1fr); gap:18px; }
+.hotel-histogram-panel { width:100%; }
+.hotel-histogram-panel svg { width:100%; min-width:0; }
+.hotel-histogram-panel .hotel-hist-bar { cursor:help; transition:opacity .12s ease,stroke .12s ease; }
+.hotel-histogram-panel .hotel-hist-bar:hover,
+.hotel-histogram-panel .hotel-hist-bar:focus { opacity:.78; stroke:#222; stroke-width:1.5; outline:none; }
+@media(max-width:900px) { .hotel-histogram-grid { grid-template-columns:minmax(0,1fr); } .hotel-histogram-panel:last-child:nth-child(2n + 1) { grid-column:auto; width:100%; } }
