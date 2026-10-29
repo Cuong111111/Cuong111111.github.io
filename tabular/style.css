@@ -379,3 +379,15 @@ tbody th {
     font-size: 12px;
   }
 }
+
+
+/* Six histogram panels reconstructed from histogram_data.json. */
+.histogram-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:14px; }
+.histogram-panel { min-width:0; overflow-x:auto; background:#fff; }
+.histogram-panel svg { display:block; width:100%; min-width:290px; height:auto; }
+.histogram-panel .hist-title { fill:#292929; font:600 14px Arial,sans-serif; }
+.histogram-panel .hist-grid { stroke:#dedede; stroke-width:1; }
+.histogram-panel .hist-axis { fill:#454545; font:10px Arial,sans-serif; }
+.histogram-panel .hist-bar { shape-rendering:crispEdges; }
+@media (max-width:900px) { .histogram-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:560px) { .histogram-grid { grid-template-columns:1fr; } .histogram-panel svg { min-width:0; } }
