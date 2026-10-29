@@ -582,3 +582,38 @@ a {
         transform: none;
     }
 }
+
+
+/* Expanded accent palette: lime remains the brand color, with cool and warm tones for hierarchy. */
+:root {
+    --accent-cyan: #54d9e8;
+    --accent-violet: #b797ff;
+    --accent-coral: #ff907a;
+    --accent-amber: #ffc45e;
+    --accent-blue: #78a9ff;
+    --accent-mint: #83e6bf;
+}
+
+body {
+    background:
+        radial-gradient(circle at 12% 32%, rgba(84, 217, 232, 0.055), transparent 26rem),
+        radial-gradient(circle at 88% 58%, rgba(183, 151, 255, 0.055), transparent 30rem),
+        radial-gradient(circle at 80% 8%, rgba(215, 255, 79, 0.07), transparent 28rem),
+        var(--bg);
+}
+
+.project-grid .project-card:nth-child(6n + 1) { --card-accent: var(--accent-cyan); }
+.project-grid .project-card:nth-child(6n + 2) { --card-accent: var(--accent-violet); }
+.project-grid .project-card:nth-child(6n + 3) { --card-accent: var(--accent-coral); }
+.project-grid .project-card:nth-child(6n + 4) { --card-accent: var(--accent-amber); }
+.project-grid .project-card:nth-child(6n + 5) { --card-accent: var(--accent-blue); }
+.project-grid .project-card:nth-child(6n) { --card-accent: var(--accent-mint); }
+.project-card .project-number { border-color: var(--card-accent, var(--accent)); background: color-mix(in srgb, var(--card-accent, var(--accent)) 12%, transparent); color: var(--card-accent, var(--accent)); }
+.project-card .project-type { color: var(--card-accent, var(--muted)); border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 32%, transparent); }
+.project-card::after { border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 20%, transparent); }
+.project-card:hover { border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 65%, transparent); box-shadow: 0 24px 52px rgba(0,0,0,.38), 0 0 0 1px color-mix(in srgb, var(--card-accent, var(--accent)) 18%, transparent), 0 0 42px color-mix(in srgb, var(--card-accent, var(--accent)) 13%, transparent); }
+.project-card::before { background: linear-gradient(120deg, transparent 25%, color-mix(in srgb, var(--card-accent, var(--accent)) 12%, transparent), transparent 75%); }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

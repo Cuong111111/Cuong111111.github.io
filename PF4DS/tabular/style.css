@@ -546,3 +546,26 @@ tbody th {
 .redrawn-chart .chart-bar { fill: #4f75b5; }
 .redrawn-chart .chart-value { fill: #333; font: 12px Arial, sans-serif; }
 .redrawn-chart .chart-category { fill: #383838; font: 12px Arial, sans-serif; }
+
+
+/* Color-coded data accents keep the dark theme while making sections easier to scan. */
+.stat-grid > .stat-card:nth-child(4n + 1) { --data-accent: var(--accent-cyan); }
+.stat-grid > .stat-card:nth-child(4n + 2) { --data-accent: var(--accent-violet); }
+.stat-grid > .stat-card:nth-child(4n + 3) { --data-accent: var(--accent-coral); }
+.stat-grid > .stat-card:nth-child(4n) { --data-accent: var(--accent-amber); }
+.stat-card { border-top: 2px solid var(--data-accent, var(--accent)); }
+.stat-value { color: var(--data-accent, var(--accent)); }
+.analysis-grid > .analysis-card:nth-child(4n + 1) { --data-accent: var(--accent-cyan); }
+.analysis-grid > .analysis-card:nth-child(4n + 2) { --data-accent: var(--accent-violet); }
+.analysis-grid > .analysis-card:nth-child(4n + 3) { --data-accent: var(--accent-coral); }
+.analysis-grid > .analysis-card:nth-child(4n) { --data-accent: var(--accent-amber); }
+.analysis-card { border-top: 2px solid var(--data-accent, var(--accent)); }
+.card-kicker, .assessment-index { color: var(--data-accent, var(--accent)); }
+thead th { color: var(--accent-cyan); border-bottom-color: rgba(84, 217, 232, .28); }
+tbody tr:hover { background: rgba(84, 217, 232, .055); }
+.finding-strip { border-color: rgba(84, 217, 232, .35); background: linear-gradient(110deg, rgba(84, 217, 232, .075), rgba(183, 151, 255, .045), rgba(255, 196, 94, .035)); }
+.finding-strip strong { color: var(--accent-cyan); }
+.redrawn-chart .chart-bar:nth-of-type(2n) { fill: #4f75b5; }
+.redrawn-chart .chart-bar:nth-of-type(2n + 1) { fill: #a16be0; }
+.redrawn-chart .chart-bar:nth-of-type(4n) { fill: #22a99a; }
+.redrawn-chart .chart-bar:nth-of-type(4n + 1) { fill: #e99146; }

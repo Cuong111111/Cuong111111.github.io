@@ -28,3 +28,20 @@
 
 .section#overview > .stat-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
 @media(max-width:800px) { .section#overview > .stat-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+
+/* Use the same accent palette as the Tabular page, with a distinct hue per diagnosis card. */
+.sample-card:nth-child(7n + 1) { --class-accent: var(--accent-cyan); }
+.sample-card:nth-child(7n + 2) { --class-accent: var(--accent-violet); }
+.sample-card:nth-child(7n + 3) { --class-accent: var(--accent-coral); }
+.sample-card:nth-child(7n + 4) { --class-accent: var(--accent-amber); }
+.sample-card:nth-child(7n + 5) { --class-accent: var(--accent-blue); }
+.sample-card:nth-child(7n + 6) { --class-accent: var(--accent-mint); }
+.sample-card:nth-child(7n) { --class-accent: #ef8fc2; }
+.sample-code { border-color: var(--class-accent, var(--accent)); color: var(--class-accent, var(--accent)); background: color-mix(in srgb, var(--class-accent, var(--accent)) 10%, transparent); }
+.sample-card { border-top: 2px solid var(--class-accent, var(--accent)); }
+.sample-card[open] > summary { color: var(--class-accent, var(--accent)); }
+.property-grid > .figure-card:nth-child(3n + 1) { --data-accent: var(--accent-cyan); }
+.property-grid > .figure-card:nth-child(3n + 2) { --data-accent: var(--accent-violet); }
+.property-grid > .figure-card:nth-child(3n) { --data-accent: var(--accent-coral); }
+.property-grid > .figure-card { border-top: 2px solid var(--data-accent, var(--accent)); }
