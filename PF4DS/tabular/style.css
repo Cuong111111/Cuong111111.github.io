@@ -569,3 +569,15 @@ tbody tr:hover { background: rgba(84, 217, 232, .055); }
 .redrawn-chart .chart-bar:nth-of-type(2n + 1) { fill: #a16be0; }
 .redrawn-chart .chart-bar:nth-of-type(4n) { fill: #22a99a; }
 .redrawn-chart .chart-bar:nth-of-type(4n + 1) { fill: #e99146; }
+
+
+/* Hotel Booking numerical histograms reconstructed from the supplied JSON bins. */
+.hotel-histogram-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:14px; }
+.hotel-histogram-panel { min-width:0; overflow-x:auto; background:#fff; }
+.hotel-histogram-panel svg { display:block; width:100%; min-width:290px; height:auto; }
+.hotel-histogram-panel .hotel-hist-title { fill:#292929; font:600 14px Arial,sans-serif; }
+.hotel-histogram-panel .hotel-hist-grid { stroke:#dedede; stroke-width:1; }
+.hotel-histogram-panel .hotel-hist-axis { fill:#454545; font:10px Arial,sans-serif; }
+.hotel-histogram-panel .hotel-hist-bar { shape-rendering:crispEdges; }
+@media(max-width:900px) { .hotel-histogram-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .hotel-histogram-panel:last-child:nth-child(2n + 1) { grid-column:1 / -1; width:50%; justify-self:center; } }
+@media(max-width:560px) { .hotel-histogram-grid { grid-template-columns:1fr; } .hotel-histogram-panel:last-child:nth-child(2n + 1) { grid-column:auto; width:100%; } .hotel-histogram-panel svg { min-width:0; } }
