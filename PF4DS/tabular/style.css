@@ -622,3 +622,29 @@ tbody tr:hover { background: rgba(84, 217, 232, .055); }
 .category-chart-bar:hover,.category-chart-bar:focus { opacity:.78; stroke:#222; stroke-width:1.5; outline:none; }
 .category-chart-point:hover,.category-chart-point:focus { stroke:#222; stroke-width:2; outline:none; }
 @media(max-width:600px) { .category-chart-wrap svg { min-width:760px; } }
+
+/* Random Forest results and interpretable test-set summaries. */
+.model-metrics { grid-template-columns:repeat(4,minmax(0,1fr)); margin-bottom:20px; }
+.model-metrics .stat-card { min-height:128px; padding:20px; }
+.model-metrics .stat-value { font-size:clamp(27px,3.2vw,40px); }
+.model-finding { margin:0 0 22px; }
+.model-results-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-bottom:22px; }
+.model-card { min-width:0; padding:24px; }
+.model-card h3 { margin-top:10px; }
+.model-table-wrap { margin-top:14px; }
+.model-confusion { min-width:560px; text-align:center; }
+.model-confusion caption { text-align:left; }
+.model-confusion th,.model-confusion td { text-align:center; }
+.model-confusion tbody th { text-align:left; }
+.model-confusion td { font-size:18px; font-weight:700; }
+.model-confusion td small { color:var(--muted); font-size:11px; font-weight:400; }
+.model-confusion .correct-cell { background:rgba(84,217,232,.12); }
+.model-confusion .error-cell { background:rgba(255,144,122,.11); }
+.importance-list { display:grid; gap:11px; margin:18px 0; padding:0; list-style:none; }
+.importance-list li { display:grid; grid-template-columns:minmax(145px,1.15fr) minmax(80px,2fr) 54px; align-items:center; gap:10px; font-size:12px; }
+.importance-list li strong { color:var(--accent-cyan); text-align:right; font:11px "DM Mono",monospace; }
+.importance-track { height:9px; overflow:hidden; background:rgba(255,255,255,.08); }
+.importance-track i { display:block; height:100%; background:linear-gradient(90deg,var(--accent-cyan),var(--accent-violet)); }
+.model-notes { margin-top:4px; }
+@media(max-width:900px) { .model-results-grid { grid-template-columns:1fr; } }
+@media(max-width:700px) { .model-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } .importance-list li { grid-template-columns:minmax(110px,1fr) minmax(60px,1fr) 48px; gap:7px; font-size:11px; } }

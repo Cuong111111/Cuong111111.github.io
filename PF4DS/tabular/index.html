@@ -6,7 +6,7 @@
   <meta name="description" content="Exploratory data analysis of the Hotel Booking Demand dataset, focused on booking cancellations.">
   <title>Hotel Booking Demand | PF4DS</title>
   <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
   <script defer src="../script.js"></script>
 </head>
 <body>
@@ -543,54 +543,45 @@
     </section>
 
     <section id="assessment" class="section container assessment-section">
-      <div class="section-number">05 / MODELING ASSESSMENT</div>
+      <div class="section-number">05 / MODEL TRAINING &amp; TEST RESULTS</div>
       <div class="section-heading">
-        <h2>Prepare carefully <em>before modeling.</em></h2>
-        <p>The supplied notebook covers EDA and feature preparation; it does not report fitted-model results.</p>
+        <h2>The Random Forest catches <em>most cancellations.</em></h2>
+        <p>Results on a stratified 20% holdout test set (17,480 bookings). The notebook trains one Random Forest pipeline; these scores are not a comparison against other models.</p>
       </div>
-      <div class="assessment-grid">
-        <article class="assessment-card">
-          <span class="assessment-index">01</span>
-          <h3>Handle missing values deliberately</h3>
-          <p>
-            Company is absent for 94.31% of rows and agent for 13.69%. The notebook imports
-            imputation tools, but final imputation decisions should be fitted on training data only.
-            Evaluate whether company adds useful signal given its sparse coverage.
-          </p>
+      <div class="stat-grid model-metrics">
+        <article class="stat-card"><span class="stat-value">82.68%</span><span class="stat-label">accuracy</span></article>
+        <article class="stat-card"><span class="stat-value">64.62%</span><span class="stat-label">precision ? canceled</span></article>
+        <article class="stat-card"><span class="stat-value">81.77%</span><span class="stat-label">recall ? canceled</span></article>
+        <article class="stat-card"><span class="stat-value">72.19%</span><span class="stat-label">F1 ? canceled</span></article>
+        <article class="stat-card"><span class="stat-value">0.9065</span><span class="stat-label">ROC-AUC</span></article>
+        <article class="stat-card"><span class="stat-value">0.7875</span><span class="stat-label">average precision</span></article>
+        <article class="stat-card"><span class="stat-value">0.1270</span><span class="stat-label">Brier score ? lower is better</span></article>
+      </div>
+      <div class="finding-strip model-finding"><strong>At the default 0.50 threshold</strong><p>The model correctly identifies 3,929 of 4,805 canceled bookings, but misses 876. It also flags 2,151 bookings that are not canceled, so predicted cancellations need review rather than automatic action.</p></div>
+      <div class="model-results-grid">
+        <article class="analysis-card model-card">
+          <div class="card-kicker">HELD-OUT TEST SET</div><h3>Confusion matrix</h3>
+          <p class="card-description">Counts are shown with the percentage within each actual class.</p>
+          <div class="table-wrap model-table-wrap"><table class="model-confusion"><caption>Predicted outcome by actual outcome</caption><thead><tr><th scope="col">Actual</th><th scope="col">Predicted: not canceled</th><th scope="col">Predicted: canceled</th></tr></thead><tbody>
+            <tr><th scope="row">Not canceled (12,675)</th><td class="correct-cell">10,524<br><small>83.03%</small></td><td class="error-cell">2,151<br><small>16.97% ? false positives</small></td></tr>
+            <tr><th scope="row">Canceled (4,805)</th><td class="error-cell">876<br><small>18.23% ? false negatives</small></td><td class="correct-cell">3,929<br><small>81.77%</small></td></tr>
+          </tbody></table></div>
+          <p class="chart-note">The recall score reflects the lower-right cell: about 18% of actual cancellations were still missed.</p>
         </article>
-        <article class="assessment-card">
-          <span class="assessment-index">02</span>
-          <h3>Guard against target leakage</h3>
-          <p>
-            Reservation status and reservation status date describe the outcome and are excluded
-            from the predictor set in the notebook. Keep that exclusion; otherwise the model could
-            learn information unavailable at the time a booking needs a prediction.
-          </p>
-        </article>
-        <article class="assessment-card">
-          <span class="assessment-index">03</span>
-          <h3>Check the deduplication effect</h3>
-          <p>
-            Exact duplicate removal drops 31,994 rows and changes the cancellation share from 37.04%
-            to 27.49%. Confirm whether repeated rows are true duplicates or meaningful repeated
-            booking records, and report results against a clearly defined dataset version.
-          </p>
-        </article>
-        <article class="assessment-card">
-          <span class="assessment-index">04</span>
-          <h3>No model metrics are available yet</h3>
-          <p>
-            Although model classes and metric functions are imported, the notebook ends after
-            defining the cleaned feature matrix and target. Next, use a stratified holdout split,
-            train a baseline and candidate models, then report precision, recall, F1, ROC-AUC, and
-            a confusion matrix for cancellation.
-          </p>
+        <article class="analysis-card model-card">
+          <div class="card-kicker">RANDOM FOREST</div><h3>Top feature importances</h3>
+          <p class="card-description">The leading split-based importance is lead time (10.92%), followed by country PRT (8.69%).</p>
+          <ol class="importance-list"><li><span>Lead time</span><div class="importance-track"><i style="width:100.00%"></i></div><strong>10.92%</strong></li><li><span>Country: PRT</span><div class="importance-track"><i style="width:79.58%"></i></div><strong>8.69%</strong></li><li><span>Special requests</span><div class="importance-track"><i style="width:53.50%"></i></div><strong>5.84%</strong></li><li><span>Required parking spaces</span><div class="importance-track"><i style="width:52.95%"></i></div><strong>5.78%</strong></li><li><span>ADR</span><div class="importance-track"><i style="width:45.26%"></i></div><strong>4.94%</strong></li><li><span>Agent: 9</span><div class="importance-track"><i style="width:32.46%"></i></div><strong>3.54%</strong></li><li><span>Market segment: Online TA</span><div class="importance-track"><i style="width:32.22%"></i></div><strong>3.52%</strong></li><li><span>Arrival week number</span><div class="importance-track"><i style="width:26.04%"></i></div><strong>2.84%</strong></li><li><span>Arrival day of month</span><div class="importance-track"><i style="width:23.95%"></i></div><strong>2.61%</strong></li><li><span>Weeknight stays</span><div class="importance-track"><i style="width:22.71%"></i></div><strong>2.48%</strong></li></ol>
+          <p class="chart-note">These importances describe how the fitted forest used features; they do not show causal effects. Categorical one-hot levels (such as country PRT) appear as separate features.</p>
         </article>
       </div>
-      <p class="scope-note">
-        Cancellation rates shown here are descriptive summaries from the original data unless
-        explicitly labeled as post-deduplication. They do not establish causal effects.
-      </p>
+      <div class="assessment-grid model-notes">
+        <article class="assessment-card"><span class="assessment-index">01</span><h3>Training pipeline</h3><p>80/20 stratified split: 69,916 train and 17,480 test rows. Numeric columns use median imputation and StandardScaler; categorical columns use most-frequent imputation and one-hot encoding. Preprocessing is fitted inside the pipeline on training data. The forest uses 300 trees and balanced subsample class weights.</p></article>
+        <article class="assessment-card"><span class="assessment-index">02</span><h3>Check prediction timing</h3><p>The notebook excludes reservation status fields, but still includes assigned room type, booking changes, and waiting-list days. Confirm these are available at the intended prediction time; remove post-booking information for an at-reservation model.</p></article>
+        <article class="assessment-card"><span class="assessment-index">03</span><h3>Threshold affects the trade-off</h3><p>At 0.50, cancellation precision is 64.62% and recall is 81.77%. Choose any alternative threshold using a separate validation set, then keep the test set for final evaluation.</p></article>
+        <article class="assessment-card"><span class="assessment-index">04</span><h3>Validate future performance</h3><p>This is one random holdout result. Compare with a majority-class baseline and use a time-based validation split before estimating performance on future booking periods.</p></article>
+      </div>
+      <p class="scope-note">A simple always-not-canceled reference would reach 72.51% accuracy on this test set but recall none of the canceled bookings. Source: the supplied Random Forest notebook; results describe one split and do not establish production performance.</p>
     </section>
   </main>
 
