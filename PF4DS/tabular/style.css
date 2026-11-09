@@ -648,3 +648,24 @@ tbody tr:hover { background: rgba(84, 217, 232, .055); }
 .model-notes { margin-top:4px; }
 @media(max-width:900px) { .model-results-grid { grid-template-columns:1fr; } }
 @media(max-width:700px) { .model-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } .importance-list li { grid-template-columns:minmax(110px,1fr) minmax(60px,1fr) 48px; gap:7px; font-size:11px; } }
+
+/* Keep each repeated content block on its own row for easier reading. */
+.stat-grid,
+.analysis-grid,
+.assessment-grid,
+.model-results-grid { grid-template-columns:minmax(0,1fr); }
+.stat-grid > .stat-card {
+  display:grid;
+  grid-template-columns:minmax(150px,230px) minmax(0,1fr);
+  align-items:center;
+  justify-content:initial;
+  gap:22px;
+  min-height:96px;
+  padding:18px 24px;
+}
+.model-metrics { margin-bottom:20px; }
+.model-metrics .stat-card { min-height:88px; }
+.model-results-grid { gap:16px; }
+@media(max-width:520px) {
+  .stat-grid > .stat-card { grid-template-columns:minmax(0,1fr); gap:10px; }
+}
