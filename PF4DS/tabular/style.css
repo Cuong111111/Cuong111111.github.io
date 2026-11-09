@@ -689,3 +689,13 @@ tbody tr:hover { background: rgba(84, 217, 232, .055); }
   .model-metrics,
   .split-overview { grid-template-columns:minmax(0,1fr); }
 }
+
+/* Notebook plots for train/test validation and model diagnostics. */
+.model-figure-group { margin-top:26px; }
+.model-figure-group > h3 { margin-bottom:8px; font-size:22px; }
+.model-figure-group > .card-description { margin-bottom:14px; }
+.model-figure { width:100%; }
+.model-figure-content { padding:18px 20px 4px; }
+.model-figure-content img { display:block; width:100%; max-width:1100px; height:auto; margin:0 auto; border:1px solid var(--border); background:#fff; }
+.model-figure-content .chart-note { margin:14px 0 18px; }
+@media(max-width:520px) { .model-figure-content { padding:10px 10px 2px; } }
