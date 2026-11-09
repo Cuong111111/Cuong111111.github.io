@@ -6,7 +6,7 @@
   <meta name="description" content="Exploratory data analysis of the Hotel Booking Demand dataset, focused on booking cancellations.">
   <title>Hotel Booking Demand | PF4DS</title>
   <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=15">
   <script defer src="../script.js"></script>
 </head>
 <body>
@@ -563,12 +563,12 @@
       </div>
       <div class="stat-grid model-metrics">
         <article class="stat-card"><span class="stat-value">82.68%</span><span class="stat-label">accuracy</span></article>
-        <article class="stat-card"><span class="stat-value">64.62%</span><span class="stat-label">precision ? canceled</span></article>
-        <article class="stat-card"><span class="stat-value">81.77%</span><span class="stat-label">recall ? canceled</span></article>
-        <article class="stat-card"><span class="stat-value">72.19%</span><span class="stat-label">F1 ? canceled</span></article>
+        <article class="stat-card"><span class="stat-value">64.62%</span><span class="stat-label">precision (canceled class)</span></article>
+        <article class="stat-card"><span class="stat-value">81.77%</span><span class="stat-label">recall (canceled class)</span></article>
+        <article class="stat-card"><span class="stat-value">72.19%</span><span class="stat-label">F1 (canceled class)</span></article>
         <article class="stat-card"><span class="stat-value">0.9065</span><span class="stat-label">ROC-AUC</span></article>
         <article class="stat-card"><span class="stat-value">0.7875</span><span class="stat-label">average precision</span></article>
-        <article class="stat-card"><span class="stat-value">0.1270</span><span class="stat-label">Brier score ? lower is better</span></article>
+        <article class="stat-card"><span class="stat-value">0.1270</span><span class="stat-label">Brier score (lower is better)</span></article>
       </div>
       <div class="finding-strip model-finding"><strong>At the default 0.50 threshold</strong><p>The model correctly identifies 3,929 of 4,805 canceled bookings, but misses 876. It also flags 2,151 bookings that are not canceled, so predicted cancellations need review rather than automatic action.</p></div>
       <div class="model-results-grid">
@@ -576,8 +576,8 @@
           <div class="card-kicker">HELD-OUT TEST SET</div><h3>Confusion matrix</h3>
           <p class="card-description">Counts are shown with the percentage within each actual class.</p>
           <div class="table-wrap model-table-wrap"><table class="model-confusion"><caption>Predicted outcome by actual outcome</caption><thead><tr><th scope="col">Actual</th><th scope="col">Predicted: not canceled</th><th scope="col">Predicted: canceled</th></tr></thead><tbody>
-            <tr><th scope="row">Not canceled (12,675)</th><td class="correct-cell">10,524<br><small>83.03%</small></td><td class="error-cell">2,151<br><small>16.97% ? false positives</small></td></tr>
-            <tr><th scope="row">Canceled (4,805)</th><td class="error-cell">876<br><small>18.23% ? false negatives</small></td><td class="correct-cell">3,929<br><small>81.77%</small></td></tr>
+            <tr><th scope="row">Not canceled (12,675)</th><td class="correct-cell">10,524<br><small>83.03%</small></td><td class="error-cell">2,151<br><small>16.97% false positives</small></td></tr>
+            <tr><th scope="row">Canceled (4,805)</th><td class="error-cell">876<br><small>18.23% false negatives</small></td><td class="correct-cell">3,929<br><small>81.77%</small></td></tr>
           </tbody></table></div>
           <p class="chart-note">The recall score reflects the lower-right cell: about 18% of actual cancellations were still missed.</p>
         </article>

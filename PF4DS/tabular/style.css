@@ -681,3 +681,11 @@ tbody tr:hover { background: rgba(84, 217, 232, .055); }
 .split-unit { color:var(--muted); font-size:13px; }
 .split-note { margin-top:16px; }
 @media(max-width:520px) { .split-overview { padding:10px; } .split-summary { grid-template-columns:1fr auto; gap:8px 14px; padding:14px; } .split-ratio { text-align:right; } .split-summary strong { grid-column:1; } .split-unit { grid-column:2; grid-row:2; } }
+
+/* Show model scores and the train/test split as paired cards per row. */
+.model-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.split-overview { grid-template-columns:repeat(2,minmax(0,1fr)); }
+@media(max-width:560px) {
+  .model-metrics,
+  .split-overview { grid-template-columns:minmax(0,1fr); }
+}
