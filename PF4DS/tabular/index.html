@@ -6,7 +6,7 @@
   <meta name="description" content="Exploratory data analysis of the Hotel Booking Demand dataset, focused on booking cancellations.">
   <title>Hotel Booking Demand | PF4DS</title>
   <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="style.css?v=14">
   <script defer src="../script.js"></script>
 </head>
 <body>
@@ -19,7 +19,7 @@
         <a href="#eda">EDA</a>
         <a href="#cleaning">Cleaning</a>
         <a href="#post-cleaning">Post-cleaning EDA</a>
-        <a href="#assessment">Assessment</a>
+        <a href="#split-data">Train/test split</a><a href="#assessment">Assessment</a>
       </nav>
     </div>
   </header>
@@ -542,8 +542,21 @@
       </div>
     </section>
 
+    <section id="split-data" class="section container assessment-section">
+      <div class="section-number">05 / TRAINING DATA SPLIT</div>
+      <div class="section-heading">
+        <h2>Keep the test set <em>separate.</em></h2>
+        <p>The cleaned 87,396-booking dataset is divided with an 80/20 stratified split. Stratification keeps the cancellation share similar in both subsets.</p>
+      </div>
+      <div class="split-overview" role="group" aria-label="Stratified training and test data split">
+        <div class="split-summary"><span class="split-label">Training set</span><span class="split-ratio">80%</span><strong>69,916</strong><span class="split-unit">bookings</span></div>
+        <div class="split-summary split-test"><span class="split-label">Test set</span><span class="split-ratio">20%</span><strong>17,480</strong><span class="split-unit">bookings</span></div>
+      </div>
+      <p class="scope-note split-note">Both sets preserve the cleaned target proportions: 72.51% not canceled and 27.49% canceled. The model is fitted on the training set; the test set is held back for evaluation.</p>
+    </section>
+
     <section id="assessment" class="section container assessment-section">
-      <div class="section-number">05 / MODEL TRAINING &amp; TEST RESULTS</div>
+      <div class="section-number">06 / MODEL TRAINING &amp; TEST RESULTS</div>
       <div class="section-heading">
         <h2>The Random Forest catches <em>most cancellations.</em></h2>
         <p>Results on a stratified 20% holdout test set (17,480 bookings). The notebook trains one Random Forest pipeline; these scores are not a comparison against other models.</p>
@@ -576,7 +589,7 @@
         </article>
       </div>
       <div class="assessment-grid model-notes">
-        <article class="assessment-card"><span class="assessment-index">01</span><h3>Training pipeline</h3><p>80/20 stratified split: 69,916 train and 17,480 test rows. Numeric columns use median imputation and StandardScaler; categorical columns use most-frequent imputation and one-hot encoding. Preprocessing is fitted inside the pipeline on training data. The forest uses 300 trees and balanced subsample class weights.</p></article>
+        <article class="assessment-card"><span class="assessment-index">01</span><h3>Training pipeline</h3><p>Numeric columns use median imputation and StandardScaler; categorical columns use most-frequent imputation and one-hot encoding. Both steps are fitted inside the pipeline on training data only. Preprocessing is fitted inside the pipeline on training data. The forest uses 300 trees and balanced subsample class weights.</p></article>
         <article class="assessment-card"><span class="assessment-index">02</span><h3>Check prediction timing</h3><p>The notebook excludes reservation status fields, but still includes assigned room type, booking changes, and waiting-list days. Confirm these are available at the intended prediction time; remove post-booking information for an at-reservation model.</p></article>
         <article class="assessment-card"><span class="assessment-index">03</span><h3>Threshold affects the trade-off</h3><p>At 0.50, cancellation precision is 64.62% and recall is 81.77%. Choose any alternative threshold using a separate validation set, then keep the test set for final evaluation.</p></article>
         <article class="assessment-card"><span class="assessment-index">04</span><h3>Validate future performance</h3><p>This is one random holdout result. Compare with a majority-class baseline and use a time-based validation split before estimating performance on future booking periods.</p></article>

@@ -669,3 +669,15 @@ tbody tr:hover { background: rgba(84, 217, 232, .055); }
 @media(max-width:520px) {
   .stat-grid > .stat-card { grid-template-columns:minmax(0,1fr); gap:10px; }
 }
+
+/* Explicit, bordered train/test split summary shown before model results. */
+.split-overview { display:grid; grid-template-columns:minmax(0,1fr); gap:12px; padding:18px; border:1px solid var(--border); background:var(--surface); }
+.split-summary { display:grid; grid-template-columns:minmax(140px,1fr) 90px minmax(120px,.7fr) auto; align-items:center; gap:18px; min-height:86px; padding:16px 20px; border:1px solid rgba(84,217,232,.35); background:rgba(84,217,232,.055); }
+.split-summary.split-test { border-color:rgba(183,151,255,.4); background:rgba(183,151,255,.055); }
+.split-label { font-weight:600; }
+.split-ratio { color:var(--muted); font:12px "DM Mono",monospace; }
+.split-summary strong { color:var(--accent-cyan); font-size:clamp(28px,4vw,42px); letter-spacing:-.04em; line-height:1; }
+.split-test strong { color:var(--accent-violet); }
+.split-unit { color:var(--muted); font-size:13px; }
+.split-note { margin-top:16px; }
+@media(max-width:520px) { .split-overview { padding:10px; } .split-summary { grid-template-columns:1fr auto; gap:8px 14px; padding:14px; } .split-ratio { text-align:right; } .split-summary strong { grid-column:1; } .split-unit { grid-column:2; grid-row:2; } }
