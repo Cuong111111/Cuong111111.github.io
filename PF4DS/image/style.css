@@ -60,3 +60,29 @@
 .image-analysis-section .scope-note { margin-top:16px; }
 @media(max-width:800px) { .image-analysis-grid { grid-template-columns:1fr; } }
 @media(max-width:520px) { .sample-photo-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .sample-count { display:none; } }
+
+.densenet-section { --model-accent:var(--accent-violet); }
+.densenet-split { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:24px 0 16px; }
+.densenet-split article { display:flex; flex-direction:column; gap:7px; padding:20px; border:1px solid var(--border); border-top:2px solid var(--model-accent); background:var(--surface); }
+.densenet-split article:nth-child(2) { border-top-color:var(--accent-amber); }
+.densenet-split article:nth-child(3) { border-top-color:var(--accent-cyan); }
+.densenet-split span,.densenet-metrics span { color:var(--muted); font:11px "DM Mono",monospace; letter-spacing:.06em; }
+.densenet-split strong { color:var(--model-accent); font-size:clamp(28px,4vw,40px); letter-spacing:-.04em; line-height:1; }
+.densenet-split small { color:var(--muted); font-size:12px; }
+.densenet-method,.densenet-results { margin-top:28px; }
+.densenet-method h3,.densenet-results h3 { margin:0 0 10px; font-size:22px; }
+.densenet-method p { max-width:940px; color:var(--muted); line-height:1.75; }
+.densenet-figures { display:grid; grid-template-columns:1fr; gap:16px; margin-top:20px; }
+.densenet-figure { border-top:2px solid var(--model-accent); }
+.densenet-figure:nth-child(even) { border-top-color:var(--accent-cyan); }
+.densenet-figure .chart-content { padding:18px 20px 2px; }
+.densenet-figure img { width:94%; max-width:900px; margin:0 auto; border:1px solid var(--border); background:#fff; }
+.densenet-figure .figure-comment { padding:0 3% 18px; }
+.densenet-metrics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:18px 0; }
+.densenet-metrics article { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 20px; border:1px solid var(--border); border-top:2px solid var(--model-accent); background:var(--surface); }
+.densenet-metrics article:nth-child(even) { border-top-color:var(--accent-cyan); }
+.densenet-metrics strong { color:var(--model-accent); font-size:clamp(24px,3vw,34px); letter-spacing:-.04em; }
+.densenet-metrics .figure-comment { margin:10px 0 18px; }
+.densenet-report { max-width:none; margin-top:18px; }
+@media(max-width:700px) { .densenet-split { grid-template-columns:1fr; } .densenet-metrics { grid-template-columns:1fr; } }
+@media(max-width:520px) { .densenet-figure .chart-content { padding:10px 10px 2px; } .densenet-figure img { width:100%; } .densenet-figure .figure-comment { padding:0 10px 16px; } .densenet-metrics article { padding:14px; } }

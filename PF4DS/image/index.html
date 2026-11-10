@@ -7,7 +7,7 @@
   <title>HAM10000 Image Dataset | PF4DS</title>
   <link rel="stylesheet" href="../style.css?v=12">
   <link rel="stylesheet" href="../tabular/style.css?v=6">
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
   <script defer src="../script.js"></script>
 </head>
 <body>
@@ -16,7 +16,7 @@
       <a class="brand" href="../">PF<span>4DS</span></a>
       <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="#overview">Overview</a><a href="#classes">Classes</a><a href="#images">Image gallery</a><a href="#properties">Properties</a><a href="#image-analysis">Image analysis</a>
+        <a href="#overview">Overview</a><a href="#classes">Classes</a><a href="#images">Image gallery</a><a href="#properties">Properties</a><a href="#image-analysis">Image analysis</a><a href="#densenet">DenseNet121</a>
       </nav>
     </div>
   </header>
@@ -87,6 +87,54 @@
         </div>
         <div class="table-wrap class-table"><table><caption>Mean image quality metrics by target class</caption><thead><tr><th scope="col">Target</th><th scope="col">Brightness</th><th scope="col">Contrast</th><th scope="col">Sharpness</th></tr></thead><tbody><tr><th scope="row"><code>akiec</code></th><td>164.51</td><td>23.06</td><td>61.07</td></tr><tr><th scope="row"><code>bcc</code></th><td>168.34</td><td>21.70</td><td>100.17</td></tr><tr><th scope="row"><code>bkl</code></th><td>151.93</td><td>25.68</td><td>95.46</td></tr><tr><th scope="row"><code>df</code></th><td>166.20</td><td>22.04</td><td>97.36</td></tr><tr><th scope="row"><code>mel</code></th><td>150.68</td><td>34.47</td><td>104.61</td></tr><tr><th scope="row"><code>nv</code></th><td>156.65</td><td>28.20</td><td>71.51</td></tr><tr><th scope="row"><code>vasc</code></th><td>165.21</td><td>27.22</td><td>70.78</td></tr></tbody></table></div>
         <p class="scope-note">In this sample, melanoma images have the highest mean contrast (34.47) and sharpness (104.61), while basal cell carcinoma images have the highest mean brightness (168.34). The averages describe this dataset and should not be used to classify an individual image.</p>
+      </div>
+    </section>
+    <section id="densenet" class="section container densenet-section">
+      <div class="section-number">06 / DEEP LEARNING</div>
+      <div class="section-heading"><h2>DenseNet121, <em>trained with lesion-aware splits.</em></h2><p>The notebook extends the image analysis with transfer learning on the seven HAM10000 classes. Images are split by <code>lesion_id</code> so images of the same lesion cannot appear across training, validation, and test sets.</p></div>
+
+      <div class="densenet-split">
+        <article><span>TRAIN</span><strong>6,410</strong><small>64.0% · model fitting</small></article>
+        <article><span>VALIDATION</span><strong>1,608</strong><small>16.1% · checkpoint selection</small></article>
+        <article><span>TEST</span><strong>1,997</strong><small>19.9% · held-out evaluation</small></article>
+      </div>
+      <p class="scope-note">The split contains all 10,015 images and keeps the 7,470 lesion groups disjoint. Class proportions are broadly similar between splits, while the dataset remains strongly imbalanced: <code>nv</code> accounts for about 67%.</p>
+
+      <div class="densenet-method">
+        <h3>Training setup</h3>
+        <p>ImageNet-pretrained DenseNet121; images padded and resized to 224 × 224; batch size 32. The classifier head is warmed up for 5 epochs, then the full network is fine-tuned for up to 25 epochs. Training-only augmentation and square-root inverse-frequency class weights address image variation and class imbalance. The selected checkpoint maximizes the validation score <code>0.5 × accuracy + 0.5 × macro-F1</code>.</p>
+      </div>
+
+      <div class="densenet-figures">
+        <details class="figure-card densenet-figure"><summary>Target distribution across train, validation, and test</summary><div class="chart-content"><img src="images/densenet121/train-validation-test-distribution.png" alt="Class counts and within-split percentages for the train, validation, and test partitions." loading="lazy"><p class="figure-comment">Each split preserves a similar class mix, but all three are dominated by nevi (nv). This imbalance is why accuracy should be read alongside macro-F1 and balanced accuracy.</p></div></details>
+        <details class="figure-card densenet-figure"><summary>Class similarity before fine-tuning</summary><div class="chart-content"><img src="images/densenet121/imagenet-class-similarity.png" alt="Cosine similarity matrix between class-average ImageNet-pretrained DenseNet121 embeddings, computed from training images." loading="lazy"><p class="figure-comment">Class prototypes have high cosine similarity (about 0.92–0.98), showing substantial overlap in these ImageNet features. This is a pre-training diagnostic from train images, not the final HAM10000 classifier's performance.</p></div></details>
+        <details class="figure-card densenet-figure"><summary>Training and validation history</summary><div class="chart-content"><img src="images/densenet121/training-history.png" alt="Train and validation loss and validation accuracy, macro-F1, and balanced accuracy over 30 epochs." loading="lazy"><p class="figure-comment">Loss decreases and validation scores improve during training. The validation curves level off and fluctuate in later epochs, so selecting the best validation checkpoint helps avoid relying on the last epoch by default.</p></div></details>
+      </div>
+
+      <div class="densenet-results">
+        <h3>Held-out test results</h3>
+        <div class="densenet-metrics">
+          <article><strong>82.47%</strong><span>Accuracy</span></article>
+          <article><strong>71.01%</strong><span>Macro-F1</span></article>
+          <article><strong>71.73%</strong><span>Balanced accuracy</span></article>
+          <article><strong>30</strong><span>Best epoch selected on validation</span></article>
+        </div>
+        <p class="figure-comment">Accuracy is relatively high partly because the test set is dominated by <code>nv</code>. Macro-F1 gives each class equal weight and better reflects the weaker results on less frequent classes.</p>
+        <div class="table-wrap class-table densenet-report"><table><caption>DenseNet121 classification report on the held-out test set</caption><thead><tr><th scope="col">Class</th><th scope="col">Precision</th><th scope="col">Recall</th><th scope="col">F1-score</th><th scope="col">Test images</th></tr></thead><tbody>
+          <tr><th scope="row"><code>akiec</code></th><td>0.5672</td><td>0.5588</td><td>0.5630</td><td>68</td></tr>
+          <tr><th scope="row"><code>bcc</code></th><td>0.6593</td><td>0.7059</td><td>0.6818</td><td>85</td></tr>
+          <tr><th scope="row"><code>bkl</code></th><td>0.6151</td><td>0.7566</td><td>0.6786</td><td>226</td></tr>
+          <tr><th scope="row"><code>df</code></th><td>0.7200</td><td>0.6429</td><td>0.6792</td><td>28</td></tr>
+          <tr><th scope="row"><code>mel</code></th><td>0.6519</td><td>0.4703</td><td>0.5464</td><td>219</td></tr>
+          <tr><th scope="row"><code>nv</code></th><td>0.9141</td><td>0.9154</td><td>0.9147</td><td>1,336</td></tr>
+          <tr><th scope="row"><code>vasc</code></th><td>0.8500</td><td>0.9714</td><td>0.9067</td><td>35</td></tr>
+        </tbody></table></div>
+        <p class="scope-note">The clearest weakness is melanoma (<code>mel</code>): recall is 47.03%, with many test melanomas predicted as <code>nv</code>. The strong <code>vasc</code> recall is based on only 35 test images, so it is less certain. These are benchmark results, not a clinical diagnostic tool.</p>
+      </div>
+
+      <div class="densenet-figures">
+        <details class="figure-card densenet-figure"><summary>Test confusion matrix</summary><div class="chart-content"><img src="images/densenet121/test-confusion-matrix.png" alt="Seven-class confusion matrix for DenseNet121 predictions on the 1,997 held-out test images." loading="lazy"><p class="figure-comment">The matrix shows the correct predictions on the diagonal and the main confusions off-diagonal. In particular, 68 melanoma images are classified as nevi, matching the low melanoma recall in the table.</p></div></details>
+        <details class="figure-card densenet-figure"><summary>Examples of misclassified test images</summary><div class="chart-content"><img src="images/densenet121/misclassified-test-images.png" alt="Examples of test images grouped by true class, with each incorrect predicted class shown above the image." loading="lazy"><p class="figure-comment">Visually ambiguous examples and overlapping lesion patterns contribute to class confusion. Review these examples as model errors to investigate, not as evidence that the dataset labels are incorrect.</p></div></details>
       </div>
     </section>
     </main>
