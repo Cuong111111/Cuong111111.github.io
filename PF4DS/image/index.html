@@ -94,9 +94,9 @@
       <div class="section-heading"><h2>DenseNet121, <em>trained with lesion-aware splits.</em></h2><p>The notebook extends the image analysis with transfer learning on the seven HAM10000 classes. Images are split by <code>lesion_id</code> so images of the same lesion cannot appear across training, validation, and test sets.</p></div>
 
       <div class="densenet-split">
-        <article><span>TRAIN</span><strong>6,410</strong><small>64.0% · model fitting</small></article>
-        <article><span>VALIDATION</span><strong>1,608</strong><small>16.1% · checkpoint selection</small></article>
-        <article><span>TEST</span><strong>1,997</strong><small>19.9% · held-out evaluation</small></article>
+        <article><span>TRAIN</span><strong>6,410</strong><small>64.0%</small></article>
+        <article><span>VALIDATION</span><strong>1,608</strong><small>16.1%</small></article>
+        <article><span>TEST</span><strong>1,997</strong><small>19.9%</small></article>
       </div>
       <p class="scope-note">The split contains all 10,015 images and keeps the 7,470 lesion groups disjoint. Class proportions are broadly similar between splits, while the dataset remains strongly imbalanced: <code>nv</code> accounts for about 67%.</p>
 
