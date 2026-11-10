@@ -112,7 +112,7 @@
       </div>
 
       <div class="densenet-results">
-        <h3>Held-out test results</h3>
+        <h3>Test results</h3>
         <div class="densenet-metrics">
           <article><strong>82.47%</strong><span>Accuracy</span></article>
           <article><strong>71.01%</strong><span>Macro-F1</span></article>
@@ -120,7 +120,7 @@
           <article><strong>30</strong><span>Best epoch selected on validation</span></article>
         </div>
         <p class="figure-comment">Accuracy is relatively high partly because the test set is dominated by <code>nv</code>. Macro-F1 gives each class equal weight and better reflects the weaker results on less frequent classes.</p>
-        <div class="table-wrap class-table densenet-report"><table><caption>DenseNet121 classification report on the held-out test set</caption><thead><tr><th scope="col">Class</th><th scope="col">Precision</th><th scope="col">Recall</th><th scope="col">F1-score</th><th scope="col">Test images</th></tr></thead><tbody>
+        <div class="table-wrap class-table densenet-report"><table><caption>DenseNet121 classification report on the test set</caption><thead><tr><th scope="col">Class</th><th scope="col">Precision</th><th scope="col">Recall</th><th scope="col">F1-score</th><th scope="col">Test images</th></tr></thead><tbody>
           <tr><th scope="row"><code>akiec</code></th><td>0.5672</td><td>0.5588</td><td>0.5630</td><td>68</td></tr>
           <tr><th scope="row"><code>bcc</code></th><td>0.6593</td><td>0.7059</td><td>0.6818</td><td>85</td></tr>
           <tr><th scope="row"><code>bkl</code></th><td>0.6151</td><td>0.7566</td><td>0.6786</td><td>226</td></tr>
@@ -133,8 +133,21 @@
       </div>
 
       <div class="densenet-figures">
-        <details class="figure-card densenet-figure"><summary>Test confusion matrix</summary><div class="chart-content"><img src="images/densenet121/test-confusion-matrix.png" alt="Seven-class confusion matrix for DenseNet121 predictions on the 1,997 held-out test images." loading="lazy"><p class="figure-comment">The matrix shows the correct predictions on the diagonal and the main confusions off-diagonal. In particular, 68 melanoma images are classified as nevi, matching the low melanoma recall in the table.</p></div></details>
-        <details class="figure-card densenet-figure"><summary>Examples of misclassified test images</summary><div class="chart-content"><img src="images/densenet121/misclassified-test-images.png" alt="Examples of test images grouped by true class, with each incorrect predicted class shown above the image." loading="lazy"><p class="figure-comment">Visually ambiguous examples and overlapping lesion patterns contribute to class confusion. Review these examples as model errors to investigate, not as evidence that the dataset labels are incorrect.</p></div></details>
+        <details class="figure-card densenet-figure"><summary>Test confusion matrix</summary><div class="chart-content"><img src="images/densenet121/test-confusion-matrix.png" alt="Seven-class confusion matrix for DenseNet121 predictions on the 1,997 test images." loading="lazy"><p class="figure-comment">The matrix shows the correct predictions on the diagonal and the main confusions off-diagonal. In particular, 68 melanoma images are classified as nevi, matching the low melanoma recall in the table.</p></div></details>
+      </div>
+      <div class="densenet-errors">
+        <h3>Misclassified examples by true class</h3>
+        <p class="figure-comment">Each panel shows examples from one true class and the class predicted by the model. The error totals are shown for that class in the test set.</p>
+        <div class="densenet-error-rows">
+          <details class="figure-card densenet-figure"><summary>akiec · 30 incorrect predictions</summary><div class="chart-content"><img src="images/densenet121/misclassified/akiec.png" alt="Examples of 5 incorrectly predicted akiec test images, with predicted classes and the total of 30 errors." loading="lazy"><p class="figure-comment">The shown examples are a sample of 30 incorrect predictions for akiec.</p></div></details>
+          <details class="figure-card densenet-figure"><summary>bcc · 25 incorrect predictions</summary><div class="chart-content"><img src="images/densenet121/misclassified/bcc.png" alt="Examples of 5 incorrectly predicted bcc test images, with predicted classes and the total of 25 errors." loading="lazy"><p class="figure-comment">The shown examples are a sample of 25 incorrect predictions for bcc.</p></div></details>
+          <details class="figure-card densenet-figure"><summary>bkl · 55 incorrect predictions</summary><div class="chart-content"><img src="images/densenet121/misclassified/bkl.png" alt="Examples of 5 incorrectly predicted bkl test images, with predicted classes and the total of 55 errors." loading="lazy"><p class="figure-comment">The shown examples are a sample of 55 incorrect predictions for bkl.</p></div></details>
+          <details class="figure-card densenet-figure"><summary>df · 10 incorrect predictions</summary><div class="chart-content"><img src="images/densenet121/misclassified/df.png" alt="Examples of 5 incorrectly predicted df test images, with predicted classes and the total of 10 errors." loading="lazy"><p class="figure-comment">The shown examples are a sample of 10 incorrect predictions for df.</p></div></details>
+          <details class="figure-card densenet-figure"><summary>mel · 116 incorrect predictions</summary><div class="chart-content"><img src="images/densenet121/misclassified/mel.png" alt="Examples of 5 incorrectly predicted melanoma test images, with predicted classes and the total of 116 errors." loading="lazy"><p class="figure-comment">Melanoma has the largest error count; many are predicted as nevi, consistent with its 47.03% recall.</p></div></details>
+          <details class="figure-card densenet-figure"><summary>nv · 113 incorrect predictions</summary><div class="chart-content"><img src="images/densenet121/misclassified/nv.png" alt="Examples of 5 incorrectly predicted nv test images, with predicted classes and the total of 113 errors." loading="lazy"><p class="figure-comment">Although nv has the strongest F1 score, it also has many errors in absolute count because it is by far the largest class.</p></div></details>
+          <details class="figure-card densenet-figure"><summary>vasc · 1 incorrect prediction</summary><div class="chart-content"><img src="images/densenet121/misclassified/vasc.png" alt="The one incorrectly predicted vasc test image, with the model's predicted class." loading="lazy"><p class="figure-comment">This class has one error in the test set; its support is small at 35 images.</p></div></details>
+        </div>
+        <p class="scope-note">Visually ambiguous examples and overlapping lesion patterns can contribute to class confusion. Review these as model errors to investigate, not as evidence that the dataset labels are incorrect.</p>
       </div>
     </section>
     </main>

@@ -84,5 +84,8 @@
 .densenet-metrics strong { color:var(--model-accent); font-size:clamp(24px,3vw,34px); letter-spacing:-.04em; }
 .densenet-metrics .figure-comment { margin:10px 0 18px; }
 .densenet-report { max-width:none; margin-top:18px; }
+.densenet-errors { margin-top:28px; }
+.densenet-errors h3 { margin:0 0 10px; font-size:22px; }
+.densenet-error-rows { display:grid; grid-template-columns:1fr; gap:12px; margin-top:16px; }
 @media(max-width:700px) { .densenet-split { grid-template-columns:1fr; } .densenet-metrics { grid-template-columns:1fr; } }
 @media(max-width:520px) { .densenet-figure .chart-content { padding:10px 10px 2px; } .densenet-figure img { width:100%; } .densenet-figure .figure-comment { padding:0 10px 16px; } .densenet-metrics article { padding:14px; } }
