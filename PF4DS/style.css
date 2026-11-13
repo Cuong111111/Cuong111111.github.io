@@ -617,3 +617,15 @@ body {
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+
+/* Assignment submission details shared by dataset pages. */
+.assignment-info .section-heading { margin-bottom: 28px; }
+.assignment-info-card { max-width: 920px; padding: 28px; border: 1px solid var(--border, #292d30); background: rgba(17, 20, 22, .84); }
+.assignment-info-card p { color: var(--muted, #a0a5a8); line-height: 1.75; }
+.assignment-info-card strong { color: var(--text, #f4f5f5); }
+.assignment-info-card h3 { margin: 24px 0 10px; }
+.assignment-links { display: grid; gap: 10px; padding-left: 20px; color: var(--muted, #a0a5a8); }
+.assignment-links a { color: var(--accent, #d7ff4f); }
+.assignment-pending { color: var(--muted, #a0a5a8); }
+@media (max-width: 640px) { .assignment-info-card { padding: 20px; } }

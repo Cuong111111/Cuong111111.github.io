@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="HAM10000 image dataset validation and exploratory analysis for PF4DS.">
   <title>HAM10000 Image Dataset | PF4DS</title>
-  <link rel="stylesheet" href="../style.css?v=12">
+  <link rel="stylesheet" href="../style.css?v=14">
   <link rel="stylesheet" href="../tabular/style.css?v=6">
   <link rel="stylesheet" href="style.css?v=13">
   <script defer src="../script.js"></script>
@@ -16,7 +16,7 @@
       <a class="brand" href="../">PF<span>4DS</span></a>
       <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="#overview">Overview</a><a href="#classes">Classes</a><a href="#images">Image gallery</a><a href="#properties">Properties</a><a href="#image-analysis">Image analysis</a><a href="#densenet">DenseNet121</a>
+        <a href="#overview">Overview</a><a href="#classes">Classes</a><a href="#images">Image gallery</a><a href="#properties">Properties</a><a href="#image-analysis">Image analysis</a><a href="#densenet">DenseNet121</a><a href="#project-info">Project details</a>
       </nav>
     </div>
   </header>
@@ -152,6 +152,24 @@
           <details class="figure-card densenet-figure"><summary>vasc · 1 incorrect prediction</summary><div class="chart-content"><img src="images/densenet121/misclassified/vasc.png" alt="The one incorrectly predicted vasc test image, with the model's predicted class." loading="lazy"><p class="figure-comment">This class has one error in the test set; its support is small at 35 images.</p></div></details>
         </div>
         <p class="scope-note">Visually ambiguous examples and overlapping lesion patterns can contribute to class confusion. Review these as model errors to investigate, not as evidence that the dataset labels are incorrect.</p>
+      </div>
+    </section>
+
+    <section id="project-info" class="section section-muted assignment-info">
+      <div class="container">
+        <div class="section-number">07 / PROJECT DETAILS &amp; SUBMISSION</div>
+        <div class="section-heading"><h2>HAM10000 <em>Skin Lesion Classification.</em></h2><p>Project type: image data. The project explores the HAM10000 dermatoscopic image dataset and trains a DenseNet121 classifier to recognize seven lesion categories.</p></div>
+        <div class="assignment-info-card">
+          <p><strong>Team:</strong> Individual project</p>
+          <p><strong>Member:</strong> Luu Chi Cuong - 2670811</p>
+          <p><strong>Dataset:</strong> HAM10000 contains 10,015 dermatoscopic images in seven diagnostic classes. The task is to classify each image using its diagnosis label; the classes are naturally imbalanced.</p>
+          <h3>Project files</h3>
+          <ul class="assignment-links">
+            <li><strong>Notebook:</strong> <a href="https://github.com/Cuong111111/Cuong111111.github.io/blob/main/PF4DS/notebooks/ham10000-densenet121.ipynb" target="_blank" rel="noopener noreferrer">View on GitHub</a> ? <a href="https://colab.research.google.com/github/Cuong111111/Cuong111111.github.io/blob/main/PF4DS/notebooks/ham10000-densenet121.ipynb" target="_blank" rel="noopener noreferrer">Open in Google Colab</a></li>
+            <li><strong>PDF report:</strong> <a href="reports/ham10000-report.pdf">Download report</a></li>
+            <li><strong>Presentation video:</strong> <span class="assignment-pending">YouTube link pending upload</span></li>
+          </ul>
+        </div>
       </div>
     </section>
     </main>

@@ -1,0 +1,53 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Arial}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=teal,linkcolor=teal}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\definecolor{teal}{HTML}{168A9A}
+\newcommand{\sectiontitle}[1]{\vspace{5pt}{\large\bfseries\color{teal}#1}\par\vspace{2pt}\hrule\vspace{6pt}}
+\begin{document}
+{\LARGE\bfseries HAM10000 Skin Lesion Classification}\par
+{\large Image analysis and DenseNet121 transfer learning}\vspace{8pt}\hrule\vspace{8pt}
+\textbf{Project type:} Image data\hfill\textbf{Team:} Individual project\\
+\textbf{Member:} Luu Chi Cuong (2670811)
+
+\sectiontitle{Problem and dataset}
+The project validates image-to-label matching, describes the HAM10000 dermatoscopic image collection, and trains a seven-class image classifier. The dataset contains 10,015 readable images, all 600 by 450 pixels, labeled with the target field \texttt{dx}: \texttt{akiec}, \texttt{bcc}, \texttt{bkl}, \texttt{df}, \texttt{mel}, \texttt{nv}, and \texttt{vasc}. The largest class, \texttt{nv}, represents about 67\% of the images.
+
+\sectiontitle{Split and training method}
+Data are split by \texttt{lesion\_id} into 6,410 training images (64.0\%), 1,608 validation images (16.1\%), and 1,997 test images (19.9\%). Group-aware splitting keeps images of one lesion in only one partition. DenseNet121 starts from ImageNet-pretrained weights; its classifier is warmed up before fine-tuning the full network. Images are resized with padding to 224 by 224. The training loss uses square-root inverse-frequency class weights, giving minority classes more influence without duplicating images. The checkpoint is selected on validation data using the average of accuracy and macro-F1.
+
+\sectiontitle{Test results}
+\begin{center}
+\begin{tabular}{lrrrr}
+\toprule
+Class & Precision & Recall & F1-score & Support \\
+\midrule
+akiec & 0.5672 & 0.5588 & 0.5630 & 68 \\
+bcc & 0.6593 & 0.7059 & 0.6818 & 85 \\
+bkl & 0.6151 & 0.7566 & 0.6786 & 226 \\
+df & 0.7200 & 0.6429 & 0.6792 & 28 \\
+mel & 0.6519 & 0.4703 & 0.5464 & 219 \\
+nv & 0.9141 & 0.9154 & 0.9147 & 1,336 \\
+vasc & 0.8500 & 0.9714 & 0.9067 & 35 \\
+\midrule
+Overall accuracy & \multicolumn{4}{r}{82.47\%} \\
+Macro-F1 & \multicolumn{4}{r}{71.01\%} \\
+Balanced accuracy & \multicolumn{4}{r}{71.73\%} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\sectiontitle{Interpretation and limitations}
+Class weighting mitigates the impact of imbalance during training, but the dataset and evaluation split remain naturally imbalanced. The difference between accuracy (82.47\%) and macro-F1 (71.01\%) reflects uneven class performance. Melanoma recall is the main weakness at 47.03\%; 68 melanoma test images are predicted as nevi. The high vascular-lesion recall is based on only 35 test images and should be interpreted cautiously. These results are an academic benchmark, not a clinical diagnostic system.
+
+\sectiontitle{Notebook and project details}
+\textbf{Notebook:} \href{https://github.com/Cuong111111/Cuong111111.github.io/blob/main/PF4DS/notebooks/ham10000-densenet121.ipynb}{View on GitHub}\\
+\textbf{Run in Colab:} \href{https://colab.research.google.com/github/Cuong111111/Cuong111111.github.io/blob/main/PF4DS/notebooks/ham10000-densenet121.ipynb}{Open notebook in Google Colab}\\
+\textbf{Dataset source:} \href{https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000}{HAM10000 on Kaggle}
+\end{document}

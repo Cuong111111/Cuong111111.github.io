@@ -1,0 +1,51 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Arial}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=teal,linkcolor=teal}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\definecolor{teal}{HTML}{168A9A}
+\newcommand{\sectiontitle}[1]{\vspace{5pt}{\large\bfseries\color{teal}#1}\par\vspace{2pt}\hrule\vspace{6pt}}
+\begin{document}
+{\LARGE\bfseries Hotel Booking Cancellation Analysis}\par
+{\large Tabular data analysis with a Random Forest}\vspace{8pt}\hrule\vspace{8pt}
+\textbf{Project type:} Tabular data\hfill\textbf{Team:} Individual project\\
+\textbf{Member:} Luu Chi Cuong (2670811)
+
+\sectiontitle{Problem and dataset}
+This project explores factors associated with hotel booking cancellations and evaluates a classifier that predicts whether a booking will be canceled. The data are from the Hotel Booking Demand dataset, containing 119,390 booking records and 32 source columns for City Hotel and Resort Hotel bookings. The target is \texttt{is\_canceled}.
+
+Exact duplicate removal leaves 87,396 records. The cancellation share in this cleaned data is 27.49\%. Missing company values are excluded due to their high missing rate; missing agent and country values are represented explicitly, and children is imputed with the median. These choices are documented in the project notebook.
+
+\sectiontitle{Method}
+A stratified 80/20 train-test split is used (69,916 training and 17,480 test bookings). Preprocessing is fitted within a single modeling pipeline: numeric columns are median-imputed and scaled, while categorical columns are most-frequent-imputed and one-hot encoded. A Random Forest with 300 trees and balanced subsample class weights is trained. The default 0.50 probability threshold is used for the reported test metrics.
+
+\sectiontitle{Test results}
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Metric & Test score \\
+\midrule
+Accuracy & 82.68\% \\
+Precision (canceled) & 64.62\% \\
+Recall (canceled) & 81.77\% \\
+F1-score (canceled) & 72.19\% \\
+ROC-AUC & 0.9065 \\
+Average precision & 0.7875 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The confusion matrix contains 10,524 true negatives, 2,151 false positives, 876 false negatives, and 3,929 true positives. Recall is higher than precision: most cancellations are identified, but the chosen threshold also creates false alerts. Lead time is the highest-ranked feature in the fitted forest; feature importance indicates predictive contribution, not causation.
+
+\sectiontitle{Conclusion and limitations}
+The model separates cancellation risk reasonably well by ROC-AUC and finds 81.77\% of cancellations at the default threshold. Its precision of 64.62\% means predictions should not be treated as certain cancellations. Threshold selection should reflect the operational cost of false alerts versus missed cancellations. Results describe one split of this dataset and do not establish performance on future or external hotel bookings; observed feature associations are not causal.
+
+\sectiontitle{Notebook and project details}
+\textbf{Notebook:} \href{https://github.com/Cuong111111/Cuong111111.github.io/blob/main/PF4DS/notebooks/hotel-booking-cancellation-random-forest.ipynb}{View on GitHub}\\
+\textbf{Run in Colab:} \href{https://colab.research.google.com/github/Cuong111111/Cuong111111.github.io/blob/main/PF4DS/notebooks/hotel-booking-cancellation-random-forest.ipynb}{Open notebook in Google Colab}\\
+\textbf{Dataset source:} \href{https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand}{Hotel Booking Demand on Kaggle}
+\end{document}

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Exploratory data analysis of the Hotel Booking Demand dataset, focused on booking cancellations.">
   <title>Hotel Booking Demand | PF4DS</title>
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../style.css?v=14">
   <link rel="stylesheet" href="style.css?v=16">
   <script defer src="../script.js"></script>
 </head>
@@ -19,7 +19,7 @@
         <a href="#eda">EDA</a>
         <a href="#cleaning">Cleaning</a>
         <a href="#post-cleaning">Post-cleaning EDA</a>
-        <a href="#split-data">Train/test split</a><a href="#assessment">Assessment</a>
+        <a href="#split-data">Train/test split</a><a href="#assessment">Assessment</a><a href="#project-info">Project resources</a>
       </nav>
     </div>
   </header>
@@ -603,6 +603,23 @@
         <article class="assessment-card"><span class="assessment-index">04</span><h3>Validate future performance</h3><p>This is one random holdout result. Compare with a majority-class baseline and use a time-based validation split before estimating performance on future booking periods.</p></article>
       </div>
       <p class="scope-note">A simple always-not-canceled reference would reach 72.51% accuracy on this test set but recall none of the canceled bookings. Source: the supplied Random Forest notebook; results describe one split and do not establish production performance.</p>
+    </section>
+    <section id="project-info" class="section section-muted assignment-info">
+      <div class="container">
+        <div class="section-number">07 / PROJECT DETAILS &amp; SUBMISSION</div>
+        <div class="section-heading"><h2>Hotel Booking <em>Cancellation Analysis.</em></h2><p>Project type: tabular data. The project studies cancellation patterns in Hotel Booking Demand records and evaluates a Random Forest model for cancellation prediction.</p></div>
+        <div class="assignment-info-card">
+          <p><strong>Team:</strong> Individual project</p>
+          <p><strong>Member:</strong> Lưu Chí Cường · 2670811</p>
+          <p><strong>Dataset:</strong> Hotel Booking Demand by Jesse Mostipak — 119,390 original records and 32 columns; after exact duplicate removal, 87,396 bookings remain.</p>
+          <h3>Project files</h3>
+          <ul class="assignment-links">
+            <li><strong>Notebook:</strong> <a href="https://github.com/Cuong111111/Cuong111111.github.io/blob/main/PF4DS/notebooks/hotel-booking-cancellation-random-forest.ipynb" target="_blank" rel="noopener noreferrer">View on GitHub</a> · <a href="https://colab.research.google.com/github/Cuong111111/Cuong111111.github.io/blob/main/PF4DS/notebooks/hotel-booking-cancellation-random-forest.ipynb" target="_blank" rel="noopener noreferrer">Open in Google Colab</a></li>
+            <li><strong>PDF report:</strong> <a href="reports/hotel-booking-report.pdf">Download report</a></li>
+            <li><strong>Presentation video:</strong> <span class="assignment-pending">YouTube link pending upload</span></li>
+          </ul>
+        </div>
+      </div>
     </section>
   </main>
 
