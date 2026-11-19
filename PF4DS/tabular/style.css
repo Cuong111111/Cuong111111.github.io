@@ -256,6 +256,16 @@
   overflow-x: auto;
 }
 
+.feature-audit { margin: 24px 0 28px; }
+.feature-audit-table { min-width: 1120px; }
+.feature-audit-table th,
+.feature-audit-table td { vertical-align: top; line-height: 1.55; }
+.feature-audit-table tbody th { min-width: 190px; }
+.feature-audit-table td:nth-child(2) { min-width: 150px; }
+.feature-audit-table td:nth-child(3) { min-width: 230px; }
+.feature-audit-table td:nth-child(4) { min-width: 220px; }
+.feature-audit-table td:nth-child(5) { min-width: 360px; }
+
 table {
   width: 100%;
   border-collapse: collapse;
